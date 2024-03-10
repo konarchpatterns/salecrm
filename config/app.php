@@ -54,9 +54,9 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://konarch.in/salecrm/public'),
+    'url' => env('APP_URL', 'http://konarch.in/public'),
 
-    'asset_url' => env('ASSET_URL', 'http://konarch.in/salecrm/public'),
+    'asset_url' => env('ASSET_URL', 'http://konarch.in/public'),
 
     /*
     |--------------------------------------------------------------------------
