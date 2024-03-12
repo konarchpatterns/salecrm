@@ -28,7 +28,6 @@
                         </button>
                     </div>
                 </div>
-            </form>
             <div class="grid grid-cols-2">
             <table class="w-full text-sm text-left text-gray-500 mt-3">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -74,6 +73,8 @@
 
                 </tbody>
             </table>
+			
+            </form>
             </div>
         </div>
 
