@@ -2,63 +2,67 @@
 <x-app-layout>
 
     <x-content-layout title='Permissions' secondaryButton="Add Group" subtitle="Manage your permission here." button='Add new permission' link="permissions.create">
-        <div class="relative overflow-x-auto border">
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                    <tr>
-                        <th scope="col" class="px-6 py-3">
-                            Name
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Guard
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-right">
-                            Actions
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($permissions as $permission)
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $permission->name }}
-                            </th>
-                            <td class="px-6 py-4">
-                                {{ $permission->guard_name }}
-                            </td>
-                            <td class="px-6 py-4 text-right">
-                                <button id="dropdownMenuIconButton" data-dropdown-toggle="{{ $permission->id }}"
-                                    class="bg-transparent text-gray-700 hover:bg-blue-100 focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-sm p-1 text-center inline-flex items-center"
-                                    type="button">
-                                    <x-lucide-more-vertical class="h-5 w-5" />
-                                </button>
-                                <div id="{{ $permission->id }}"
-                                    class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
-                                    <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownMenuIconButton">
-                                        {{-- <li>
-                                            <a href="{{ route('roles.show', $role->id) }}" class="block px-4 py-2 hover:bg-gray-100">View</a>
-                                        </li> --}}
-                                        <li>
-                                            <a href="{{ route('permissions.edit', $permission->id) }}" class="block px-4 py-2 hover:bg-gray-100">Edit</a>
-                                        </li>
-                                        <li>
-                                           {!! Form::open(['method' => 'DELETE','route' => ['permissions.destroy', $permission->id],'style'=>'display:inline']) !!}
-                                            {!! Form::submit('Delete', ['class' => 'font-medium text-red-600 dark:text-red-500 hover:underline ms-3']) !!}
-                                            {!! Form::close() !!}
-                                        </li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+        @include('datatablecss')
+
+<!--Card-->
+<div id='recipients' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
+
+
+    <table id="example" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
+        <thead>
+            <tr>
+                <th data-priority="1">Name</th>
+                <th data-priority="2">Guard</th>
+                <th data-priority="3">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach($permissions as $permission)
+            <tr>
+                <td>  {{ $permission->name }}</td>
+                <td> {{ $permission->guard_name }}</td>
+
+                <td>
+                    <button id="dropdownMenuIconButton" data-dropdown-toggle="{{ $permission->id }}"
+                        class="bg-transparent text-gray-700 hover:bg-blue-100 focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-sm p-1 text-center inline-flex items-center"
+                        type="button">
+                        <x-lucide-more-vertical class="h-5 w-5" />
+                    </button>
+                    <div id="{{ $permission->id }}"
+                        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+                        <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownMenuIconButton">
+
+                            <li>
+                                <a href="{{ route('permissions.edit', $permission->id) }}" class="block px-4 py-2 hover:bg-gray-100">Edit</a>
+                            </li>
+                            <li>
+                                {!! Form::open(['method' => 'DELETE', 'route' => ['permissions.destroy', $permission->id], 'style' => 'display:inline']) !!}
+                                {!! Form::submit('Delete', [ 'class' => 'block px-4 py-2 hover:bg-gray-100' ]) !!}
+                                {!! Form::close() !!}
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            @endforeach
+
+            <!-- Rest of your data (refer to https://datatables.net/examples/server_side/ for server side processing)-->
+
+
+        </tbody>
+
+    </table>
+
+
+</div>
+<!--/Card-->
+
 
 
 <!-- Main modal -->
-<div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden 
-fixed top-0 right-0 left-0 z-50 justify-center items-center w-full 
+<div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden
+fixed top-0 right-0 left-0 z-50 justify-center items-center w-full
 md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-2xl max-h-full">
         <!-- Modal content -->
@@ -87,12 +91,29 @@ md:inset-0 h-[calc(100%-1rem)] max-h-full">
             @livewire('creategroup')
 
             </div>
-           
+
         </div>
     </div>
 </div>
 
 
+<!--/container-->
+<!-- jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<!--Datatables -->
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script>
+    $(document).ready(function() {
+
+        var table = $('#example').DataTable({
+                responsive: true
+            })
+            .columns.adjust()
+            .responsive.recalc();
+    });
+</script>
     </x-content-layout>
 
 

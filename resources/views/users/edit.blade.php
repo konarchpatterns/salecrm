@@ -1,4 +1,5 @@
 <x-app-layout>
+    @include('datatablecss')
     <x-content-layout title='Users' subtitle="Edit User." button='Go back' link="users.index">
 
     <div class="space-y-3">
@@ -41,6 +42,16 @@
                     <label for="role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Role
                     </label>
+                    @php
+                    $ii=0;
+                    @endphp
+                    <!--/container-->
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+    <!--Datatables -->
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 
                     @foreach($roles as $role)
 
@@ -54,18 +65,6 @@
                     {{ $role->name }}
                     @endforeach
 
-                    {{-- <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
-                     focus:border-blue-500 block w-1/3 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
-                     dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    name="role[]" required multiple>
-                    <option value="">Select role</option>
-                    @foreach($roles as $role)
-                        <option value="{{ $role->name }}"
-                            {{ in_array($role->name, $userRole)
-                                ? 'selected'
-                                : '' }}>{{ $role->name }}</option>
-                    @endforeach
-                </select> --}}
                 </div>
 
 
@@ -133,14 +132,17 @@
                 <div class="grid grid-cols-2 gap-6 mt-6">
                     @foreach ($groupArr as $key => $val)
                         @if (count(json_decode($groupArr[$key][0]['data'], true)) > 0)
-                            <table class="text-sm text-left text-gray-500 max-h-96 overflow-hidden">
-                                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                                    <tr>
+                        <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white max-h-24'">
+
+                        <table id="example{{ $ii }}" class="stripe hover" style="width:100%; padding-top: 1em;
+                        padding-bottom: 1em; ">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
                                         <th colspan="3" scope="col" class="px-6 py-3">Group - {{ $key }}</th>
                                     </tr>
                                     <tr>
                                         <th scope="col" class="px-6 py-3">
-                                            <input name="all_permission" id="all_permission" type="checkbox"
+                                            <input name="all_permission{{ $ii }}" id="all_permission" type="checkbox"
                                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                             <label for="checkbox-all-search" class="sr-only"></label>
                                         </th>
@@ -165,7 +167,7 @@
                                                         value="{{ $permission['name'] }}"
                                                         {{ in_array($permission['name'], $userPermission) ? 'checked' : '' }}
                                                         {{ in_array($permission['name'], $permissionNamesecs) ? 'checked disabled' : '' }}
-                                                        class="permission w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600">
+                                                        class="permission{{ $ii }} w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600">
                                                     <label for="permission[{{ $permission['name'] }}]" class="sr-only"
                                                         checked>checkbox</label>
                                                 </th>
@@ -180,8 +182,50 @@
                                     @endif
                                 </tbody>
                             </table>
+                        </div>
                         @endif
 
+                        @section('scripts')
+                        @push('other-scripts')
+                            <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+                            <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+
+                        <script>
+                            $(document).ready(function() {
+
+                                var table = $('#example@php echo $ii; @endphp').DataTable({
+                                        responsive: true,
+                                        bPaginate: false,
+                                        scrollCollapse: true,
+                            scrollY: '50vh'
+                                    })
+                                    .columns.adjust()
+                                    .responsive.recalc();
+                            });
+                        </script>
+                            <script type="text/javascript">
+                                $(document).ready(function() {
+                                    $('[name="all_permission@php echo $ii; @endphp"]').on('click', function() {
+
+                                        if ($(this).is(':checked')) {
+                                            $.each($('.permission@php echo $ii; @endphp'), function() {
+                                                $(this).prop('checked', true);
+                                            });
+                                        } else {
+                                            $.each($('.permission@php echo $ii; @endphp'), function() {
+                                                $(this).prop('checked', false);
+                                            });
+                                        }
+
+                                    });
+                                });
+                            </script>
+                        @endpush
+                        @endsection
+                        @php
+                            $ii++ ;
+                        @endphp
                     @endforeach
                 </div>
 
