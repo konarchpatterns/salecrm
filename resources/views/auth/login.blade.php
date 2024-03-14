@@ -150,12 +150,12 @@
                         <input type="password" name="password" id="password" placeholder="••••••••" class="jtAJHOc7mn7b4IKRO59D pXhVRBC8yaUNllmIWxln vpDN1VEJLu5FmLkr5WCk __9sbu0yrzdhGIkLWNXl gx_pYWtAG2cJIqhquLbx mveJTCIb2WII7J4sY22F GdTcGtoKP5_bET3syLDl LceKfSImrGKQrtDGkpBV _Vb9igHms0hI1PQcvp_S t6gkcSf0Bt4MLItXvDJ_ olxDi3yL6f0gpdsOFDhx jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP H7KQDhgKsqZaTUouEUQL OyABRrnTV_kvHV7dJ0uE KpCMWe32PQyrSFbZVput q6szSHqGtBufkToFe_s5" required="">
                     </div>
                     <div class="YRrCJSr_j5nopfm4duUc _7_AEkSp_Gi6KH9ZW6st">
-                        <div class="YRrCJSr_j5nopfm4duUc Q_jg_EPdNf9eDMn1mLI2 rxe6apEJoEk8r75xaVNG">
+                        {{-- <div class="YRrCJSr_j5nopfm4duUc Q_jg_EPdNf9eDMn1mLI2 rxe6apEJoEk8r75xaVNG">
                             <input id="remember" aria-describedby="remember" name="remember" type="checkbox" class="E9GV5sZJIbfO_GEQ_moc _o2IXcpM0qnG3JPReKus vpDN1VEJLu5FmLkr5WCk Y3FxyuXtj2gecrGXvLEI jtAJHOc7mn7b4IKRO59D focus:ring-3 KmgKPWh7pHX4ztLneO0T BO8JrKgx4qkHG27c4wVR _GL8_lXmAgroY9ZBWGLH jqg6J89cvxmDiFpnV56r Mmx5lX7HVdrWCgh3EpTP" required="">
                         </div>
                         <div class="oA7zcT_42jVeFuWTXQnq c8dCx6gnV43hTOLV6ks5">
                         <label for="remember" class="ezMFUVl744lvw6ht0lFe __9sbu0yrzdhGIkLWNXl OyABRrnTV_kvHV7dJ0uE">{{ __('Remember me') }}</label>
-                        </div>
+                        </div> --}}
                         @if (Route::has('password.request'))
                         <a href="{{ route('password.request') }}" class="zjZIaeYZzHaaBqxD5KzF c8dCx6gnV43hTOLV6ks5 OQflBVxALl1Ntbyc2J2_ oJZU4OQzzfXeLbF7UKZ_ fZf6W_ZtzEh6EEqmWMA9">Lost Password?</a>
                         @endif
@@ -165,9 +165,9 @@
                      {{-- <x-button  type="submit" class="t6gkcSf0Bt4MLItXvDJ_ ZjWEEmDsdPvU2GdH53LK i8v96MUlFwGv9qJUkAx7 d3C8uAdJKNl1jzfE9ynq ezMFUVl744lvw6ht0lFe ijrOHNoSVGATsWYKl4Id y6GKdvUrd7vp_pxsFb57 g40_g3BQzYCOX5eZADgY mveJTCIb2WII7J4sY22F YoPCmQ0E_V5W0GGmSIdm _dylIDxYTN3qgvD4U597 KmgKPWh7pHX4ztLneO0T icxWjIgUd9_dzYucx1nx d8_fVOcgDmbt7UdpfeLK WuKugQzwTT7o1wwBck2R _ZsTMX_gz275093orLWM">
                         {{ __('Login to your account') }}
                     </x-button> --}}
-                    <div class="c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe PeR2JZ9BZHYIH8Ea3F36 XIIs8ZOri3wm8Wnj9N_y">
+                    {{-- <div class="c8dCx6gnV43hTOLV6ks5 ezMFUVl744lvw6ht0lFe PeR2JZ9BZHYIH8Ea3F36 XIIs8ZOri3wm8Wnj9N_y">
                         Not registered? <a href="{{ route('register') }}" class="OQflBVxALl1Ntbyc2J2_ oJZU4OQzzfXeLbF7UKZ_ fZf6W_ZtzEh6EEqmWMA9">Create account</a>
-                    </div>
+                    </div> --}}
 
 
 
