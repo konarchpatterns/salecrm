@@ -45,7 +45,7 @@
 
           </nav>
           <!-- Mobile menu, show/hide based on menu open state. -->
-          <div class="lg:hidden z-10" role="dialog" aria-modal="true">
+          {{-- <div class="lg:hidden z-10" role="dialog" aria-modal="true">
             <!-- Background backdrop, show/hide based on slide-over state. -->
             <div class="fixed inset-0 z-50"></div>
             <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
@@ -75,7 +75,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> --}}
         </header>
 
 
