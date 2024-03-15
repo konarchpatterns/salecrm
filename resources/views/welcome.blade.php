@@ -103,7 +103,7 @@
               they have access to all the information they need about their customers buying habits, preferences,
               and other data points for better sales pitches.</p>
             <div class="mt-10    flex items-center  gap-x-4">
-              <a href="#" class="rounded-md bg-blue-800 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#071a9a]"> Log-in </a>
+              <a href="{{ route('login') }}" class="rounded-md bg-blue-800 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#071a9a]"> Log-in </a>
 
             </div>
           </div>
