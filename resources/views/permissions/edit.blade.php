@@ -3,14 +3,18 @@
     <x-content-layout title='Edit Permissions' subtitle="Edit permission here." button='Go back' link="permissions.index">
         <div class="space-y-3">
             @if ($errors->has('name'))
-                <div class="alert alert-danger">
+                {{-- <div class="alert alert-danger">
                     <strong>Whoops!</strong> There were some problems with your input.<br><br>
                     <ul>
 
                             <li>{{ $errors->first('name') }}</li>
 
                     </ul>
-                </div>
+                </div> --}}
+                {{toastr()->addDanger('Whoops!</strong> There were some problems with your input')}}
+
+                {{toastr()->addDanger($errors->first('name'))}}
+
             @endif
             <form method="POST" action="{{ route('permissions.update', $permission->id) }}">
                 @method('patch')
