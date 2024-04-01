@@ -52,7 +52,7 @@
                         <img src={{asset('logo.png')}} class="h-10  me-2" alt="FlowBite Logo" />
                         {{-- <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Flowbite</span> --}}
                       </a>
-                      <div class = "flex items-center justify-end ltl:justify-end   sm:block ">
+                      <div class = "flex items-center justify-end ltl:justify-end  hidden sm:block ">
 
                         <svg xmlns="http://www.w3.org/2000/svg" class= "ml-12  " width="24" height="24"   id= "btn11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis-vertical "><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
                         <svg xmlns="http://www.w3.org/2000/svg" class= "ml-12  " width="24" height="24"   id= "btn12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis-vertical "><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
