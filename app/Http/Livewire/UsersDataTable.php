@@ -30,9 +30,11 @@ class UsersDataTable extends Component
         // Updated query with search condition
         $users = DB::table('users as e')
                    ->leftJoin('users as m', 'e.assign_by', '=', 'm.id')
-                   ->select('e.id', 'e.name as EmployeeName', 'e.email', 'm.name as AssignedBy')
+                   ->leftJoin('roles as d', 'e.designation', '=', 'd.id')
+                   ->select('e.id', 'e.name as EmployeeName', 'e.email','d.name as dname', 'm.name as AssignedBy')
                    ->where('e.name', 'like', '%' . $this->search . '%') // Search condition
                    ->orWhere('e.email', 'like', '%' . $this->search . '%') // You can add more conditions to search in other fields
+                   ->orWhere('d.name', 'like', '%' . $this->search . '%')
                    ->paginate(15);
 
         return view('livewire.users-data-table', ['users' => $users]);
@@ -44,9 +46,11 @@ class UsersDataTable extends Component
         $filename = "users_export.csv";
         $users = DB::table('users as e')
                     ->leftJoin('users as m', 'e.assign_by', '=', 'm.id')
-                    ->select('e.id', 'e.name as EmployeeName', 'e.email', 'm.name as AssignedBy')
+                    ->leftJoin('roles as d', 'e.designation', '=', 'd.id')
+                    ->select('e.id', 'e.name as EmployeeName', 'e.email','d.name as dname', 'm.name as AssignedBy')
                     ->where('e.name', 'like', '%' . $this->search . '%')
                     ->orWhere('e.email', 'like', '%' . $this->search . '%')
+                    ->orWhere('d.name', 'like', '%' . $this->search . '%')
                     ->get();
 
         $headers = array(
