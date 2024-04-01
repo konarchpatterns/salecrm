@@ -125,5 +125,10 @@
         @stack('modals')
 
         @livewireScripts
+        <script>
+
+            document.body.style.zoom = "80%";
+
+    </script>
     </body>
 </html>
