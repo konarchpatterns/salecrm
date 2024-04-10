@@ -1,5 +1,5 @@
 
-<aside id="logo-sidebar"  class="fixed top-0 left-0 z-40 w-64 justify-center  h-full pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
+<aside id="logo-sidebar"  class="fixed top-0 left-0 z-40 w-64 justify-center  h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
 
     <div class="h-full px-3  overflow-y-auto bg-white dark:bg-gray-800">
        <ul class="space-y-2 font-medium">
@@ -13,8 +13,9 @@
                  <x-lucide-building-2  class="w-5 h-5 @if(request()->routeIs('account.index')) text-blue-600 @else text-gray-500 @endif" />
             </x-nav-link>
         </li>
+
         <li>
-            <x-nav-link href="{{ route('clients.index') }}" title="{{ __('Clients') }}" :active="request()->routeIs('clients.index')">
+            <x-nav-link href="{{ route('clients.index') }}"  id="client" title="{{ __('Clients') }}" :active="request()->routeIs('clients.index')">
                  <x-lucide-building-2  class="w-5 h-5 @if(request()->routeIs('clients.index')) text-blue-600 @else text-gray-500 @endif" />
             </x-nav-link>
         </li>
@@ -66,6 +67,7 @@
     //   // Show the Open button
     document.getElementById('dashboard').querySelector('span').hidden = false;
     document.getElementById('account').querySelector('span').hidden = false;
+    document.getElementById('client').querySelector('span').hidden = false;
     document.getElementById('roles').querySelector('span').hidden = false;
     document.getElementById('permissions').querySelector('span').hidden = false;
     document.getElementById('groups').querySelector('span').hidden = false;
@@ -96,6 +98,7 @@ document.getElementById('btn12').addEventListener('click', function() {
     document.getElementById('roles').querySelector('span').hidden = true;
     document.getElementById('permissions').querySelector('span').hidden = true;
     document.getElementById('account').querySelector('span').hidden = true;
+    document.getElementById('client').querySelector('span').hidden = true;
     document.getElementById('groups').querySelector('span').hidden = true;
     document.getElementById('users').querySelector('span').hidden = true;
     document.getElementById('box').style.marginLeft = '50px';
