@@ -28,11 +28,19 @@ class Account extends Component
     {
         // Updated query with search condition
          $account = DB::table('companies as e')
-                   ->select('e.id','e.name', 'e.website', 'e.fax')
-                   ->where('e.name', 'like', '%' . $this->search . '%') // Search condition
-                   ->orWhere('e.website', 'like', '%' . $this->search . '%') // You can add more conditions to search in other fields
-                   ->paginate(10);
-        // $users = DB::table('companies as e')
+         ->select('e.id', 'e.name', 'e.website', 'e.fax',
+         DB::raw('GROUP_CONCAT(company_phones.phone) as clpp'),
+         DB::raw('GROUP_CONCAT(clients_phones.phone) as clp'))
+         ->leftJoin('company_phones', 'company_phones.company_id', '=', 'e.id')
+         ->leftJoin('clients', 'clients.companyId', '=', 'e.id')
+        ->leftJoin('clients_phones', 'clients_phones.clients_id', '=', 'clients.id')
+         ->where('e.name', 'like', '%' . $this->search . '%') // Search condition
+         ->orWhere('e.website', 'like', '%' . $this->search . '%')
+         ->orWhere('company_phones.phone', 'like', '%' . $this->search . '%')
+         ->orWhere('clients_phones.phone', 'like', '%' . $this->search . '%') // You can add more conditions to search in other fields
+         ->groupBy('e.id', 'e.name', 'e.website', 'e.fax')
+
+         ->paginate(10);
         //            ->leftJoin('companies as m', 'e.assign_by', '=', 'm.id')
         //            ->select('e.id', 'e.name as EmployeeName', 'e.email', 'm.name as AssignedBy')
         //            ->where('e.name', 'like', '%' . $this->search . '%') // Search condition

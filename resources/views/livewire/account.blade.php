@@ -52,6 +52,10 @@
                             Name
                         </th>
                         <th scope="col" class="px-5 py-2">
+                            Phone
+                        </th>
+
+                        <th scope="col" class="px-5 py-2">
                             Website
                         </th>
                         <th scope="col" class="px-5 py-2">
@@ -68,10 +72,23 @@
                 <tbody>
 
                     @foreach ($account as $accounts)
+                    @php
+                        $companyphone=array_unique(explode(",",$accounts->clpp));
+                        $clientphone=array_unique(explode(",",$accounts->clp));
+                    @endphp
                         <tr class="border-b dark:border-gray-700">
                             <td class="px-4 py-3 text-right">{{ $accounts->id }}</td>
                             <td class="px-4 py-3">{{ $accounts->name }}</td>
-                            <td class="px-4 py-3"> {{ $accounts->website }}</td>
+                            <td class="px-4 py-3">
+                                @foreach ($companyphone as $val)
+                                <a href="callto:{{ $val }}">{{$val}}</a><br>
+                            @endforeach
+
+                            @foreach ($clientphone as $val)
+                            <a href="callto:{{ $val }}">{{$val}}</a><br>
+                        @endforeach
+                            </td>
+                            <td class="px-4 py-3"><a  href="{{$accounts->website}}" target="_blank">{{ $accounts->website }}</a></td>
                             <td class="px-4 py-3"> {{ $accounts->fax }}</td>
                             <td class="px-4 py-3">
                                 <a href="account/update/{{ $accounts->id }}">
