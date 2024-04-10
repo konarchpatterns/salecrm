@@ -21,10 +21,12 @@ class Clients extends Component
     public function render()
     {
          $clients = DB::table('clients as e')
-                   ->select('e.id','e.fname', 'e.lname', 'e.designation','e.companyId', 'e.linkdinurl', 'companies.name')->leftJoin('companies', 'e.companyId', '=', 'companies.id')
-                   ->where('e.fname', 'like', '%' . $this->search . '%') 
+                   ->select('e.id','e.fname', 'e.lname', 'e.designation','e.companyId', 'e.linkdinurl',
+                   'companies.name as cname')
+                   ->leftJoin('companies', 'e.companyId', '=', 'companies.id')
+                   ->where('e.fname', 'like', '%' . $this->search . '%')
                    ->orWhere('e.lname', 'like', '%' . $this->search . '%')
-                   ->orWhere('e.designation', 'like', '%' . $this->search . '%') 
+                   ->orWhere('e.designation', 'like', '%' . $this->search . '%')
                    ->paginate(10);
 
 
