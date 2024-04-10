@@ -1,4 +1,5 @@
-@props(['title', 'subtitle','listlink'=>null,'listButton'=>null,'desButton'=>null, 'secLink'=>null, 'userButton'=> null,'button'=> null, 'link','secondaryButton' => null,'secondarylink'=> null])
+{{-- @props(['title', 'subtitle','listlink'=>null,'listButton'=>null,'desButton'=>null, 'secLink'=>null, 'userButton'=> null,'button'=> null, 'link','secondaryButton' => null,'secondarylink'=> null], 'createClient'=>null, 'createClientLink'=>null, 'viewClietns'=>null, 'clientsLink'=>null, 'id'=>null]) --}}
+@props(['title', 'subtitle','listlink'=>null,'listButton'=>null,'desButton'=>null, 'secLink'=>null, 'secLinkss'=>null,'companyidss'=>null, 'userButtonss'=> null,'userButton'=> null,'button'=> null, 'link','secondaryButton' => null,'secondarylink'=> null, 'createClient'=>null, 'createClientLink'=>null, 'viewClietns'=>null, 'clientsLink'=>null, 'id'=>null])
 
 <div class="space-y-6">
     <div class="flex flex-row items-center justify-between">
@@ -16,7 +17,20 @@
                 </button> --}}
                 @endif
                 @if ($userButton != null)
-            <a href="{{ route($secLink) }}" class="px-3 py-2  mr-3 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">{{ $userButton }}</a>
+            <a href="{{ route($secLink) }}"
+            class="px-3 py-2  mr-3 text-xs font-medium text-center text-white
+             bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none
+              focus:ring-blue-300">{{ $userButton }}</a>
+            @endif
+            @if ($userButtonss != null)
+            <a href="{{ route($secLinkss,['id'=>$companyidss]) }}" class="px-3 py-2  mr-3 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">{{ $userButtonss }}</a>
+            @endif
+            @if ($viewClietns != null)
+            <a href="{{ route($clientsLink, ['id' => $id]) }}" class="px-3 py-2  mr-3 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">{{ $viewClietns }}</a>
+            @endif
+
+            @if ($createClient != null)
+            <a href="{{ route($createClientLink) }}" class="px-3 py-2  mr-3 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">{{ $createClient }}</a>
             @endif
             @if ($desButton != null)
             <a data-modal-target="default-modal" data-modal-toggle="default-modal"  class="px-3 py-2 mr-3 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">{{ $desButton }}</a>
