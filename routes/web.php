@@ -8,6 +8,8 @@ use App\Http\Controllers\PostsController;
 use App\Http\Controllers\AccountsController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\PermissionsController;
+use App\Http\Controllers\ZoomController;
+use App\Http\Controllers\ClientsController;
 use App\Http\Livewire\Counter;
 
 /*
@@ -91,6 +93,7 @@ Route::group(['prefix' => 'account'], function() {
     Route::get('/create', [AccountsController::class,'create'])->name('account.create');
     Route::get('/update/{id}', [AccountsController::class,'update'])->name('account.update');
     Route::get('/', [AccountsController::class,'index'])->name('account.index');
+    Route::get('/create-client', [AccountsController::class,'createClient'])->name('account.createClient');
 })->middleware('auth');
 
 
@@ -115,3 +118,19 @@ Route::get('send-mail', function () {
 
     dd("Email is Sent.");
 });
+
+
+
+Route::group(['prefix'=>'clients'],function(){
+    Route::get('/', [ClientsController::class, 'index'])->name('clients.index');
+    Route::get('/update/{id}', [ClientsController::class,'update'])->name('clients.update');
+    Route::get('/view-clients/{id}', [ClientsController::class, 'viewClients'])->name('clients.view-clients');
+
+    Route::get('/create-client/{id}', [ClientsController::class,'createClientById'])->name('clients.createClientById');
+})->middleware('auth');
+
+
+
+Route::get('/zoom', [ZoomController::class,'create_meeting'])->name('zoom.index');
+Route::get('/zoom/update', [ZoomController::class,'update_meeting'])->name('zoom.update');
+Route::get('/zoom/list', [ZoomController::class,'list_meetings'])->name('zoom.list');

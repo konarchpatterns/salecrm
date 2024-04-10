@@ -14,6 +14,11 @@
             </x-nav-link>
         </li>
         <li>
+            <x-nav-link href="{{ route('clients.index') }}" title="{{ __('Clients') }}" :active="request()->routeIs('clients.index')">
+                 <x-lucide-building-2  class="w-5 h-5 @if(request()->routeIs('clients.index')) text-blue-600 @else text-gray-500 @endif" />
+            </x-nav-link>
+        </li>
+        <li>
             <x-nav-link href="{{ route('roles.index') }}"  id="roles" title="{{ __('Roles') }}" :active="request()->routeIs('roles.index')">
                  <x-lucide-shield  class="w-5 h-5   @if(request()->routeIs('roles.index')) text-blue-600 @else text-gray-500 @endif" />
             </x-nav-link>
