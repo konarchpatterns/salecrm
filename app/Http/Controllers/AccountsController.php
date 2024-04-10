@@ -37,4 +37,12 @@ class AccountsController extends Controller
         }
         return view('account.update',compact('id','countryidss','stateidss','cityidss'));
     }
+    public function createClient(){
+
+        return view('account.createClient');
+    }
+    public function createClientById(){
+
+        return view('account.createClient');
+    }
 }
