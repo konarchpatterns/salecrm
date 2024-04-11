@@ -56,10 +56,25 @@
                         </th>
 
                         <th scope="col" class="px-5 py-2">
+                            Email
+                        </th>
+                        <th scope="col" class="px-5 py-2">
                             Website
                         </th>
                         <th scope="col" class="px-5 py-2">
                             Fax
+                        </th>
+                        <th scope="col" class="px-5 py-2">
+                            Country
+                        </th>
+                        <th scope="col" class="px-5 py-2">
+                            State
+                        </th>
+                        <th scope="col" class="px-5 py-2">
+                            City
+                        </th>
+                        <th scope="col" class="px-5 py-2">
+                            Time Zone
                         </th>
                         <th scope="col" class="px-5 py-2">
                             Action
@@ -75,6 +90,11 @@
                     @php
                         $companyphone=array_unique(explode(",",$accounts->clpp));
                         $clientphone=array_unique(explode(",",$accounts->clp));
+                        $companymails=array_unique(explode(",",$accounts->companymail));
+                        $couname=array_unique(explode(",",$accounts->couname));
+                        $stname=array_unique(explode(",",$accounts->stname));
+                        $timezone=array_unique(explode(",",$accounts->timezone));
+                        $city=array_unique(explode(",",$accounts->cityname));
                     @endphp
                         <tr class="border-b dark:border-gray-700">
                             <td class="px-4 py-3 text-right">{{ $accounts->id }}</td>
@@ -88,8 +108,38 @@
                             <a href="callto:{{ $val }}">{{$val}}</a><br>
                         @endforeach
                             </td>
+                            <td class="px-4 py-3">
+                                @foreach ($companymails as $val)
+                                <a href="mailto:{{ $val }}">{{$val}}</a><br>
+                            @endforeach
+                            </td>
                             <td class="px-4 py-3"><a  href="{{$accounts->website}}" target="_blank">{{ $accounts->website }}</a></td>
                             <td class="px-4 py-3"> {{ $accounts->fax }}</td>
+                            <td class="px-4 py-3">
+                                @if(!empty($couname))
+                                 {{ $couname[0] }}
+                                 @endif
+                                </td>
+                            <td class="px-4 py-3">
+                                @if(!empty($stname))
+                                @if($stname[0]!="select states")
+                                {{ $stname[0] }}
+                                @endif
+                                @endif
+                            </td>
+                            <td class="px-4 py-3">
+                                @if(!empty($city))
+                                @if($stname[0]!="select cities")
+                                {{ $city[0] }}
+                                @endif
+
+                                @endif
+                            </td>
+                            <td class="px-4 py-3">
+                                @if(!empty($timezone))
+                                {{ $timezone[0] }}
+                                @endif
+                            </td>
                             <td class="px-4 py-3">
                                 <a href="account/update/{{ $accounts->id }}">
                                 <x-lucide-pencil style="color: #3253e6" width="20" height="20" />
