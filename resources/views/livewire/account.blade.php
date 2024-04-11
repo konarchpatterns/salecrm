@@ -97,8 +97,8 @@
                         $city=array_unique(explode(",",$accounts->cityname));
                     @endphp
                         <tr class="border-b dark:border-gray-700">
-                            <td class="px-4 py-3 text-right">{{ $accounts->id }}</td>
-                            <td class="px-4 py-3">{{ $accounts->name }}</td>
+                            <td class="px-4 py-3 text-right"> <a href="account/update/{{ $accounts->id }}">{{ $accounts->id }}</td>
+                            <td class="px-4 py-3"> <a href="account/update/{{ $accounts->id }}">{{ $accounts->name }}</td>
                             <td class="px-4 py-3">
                                 @foreach ($companyphone as $val)
                                 <a href="callto:{{ $val }}">{{$val}}</a><br>
@@ -122,14 +122,14 @@
                                 </td>
                             <td class="px-4 py-3">
                                 @if(!empty($stname))
-                                @if($stname[0]!="select states")
+                                @if(($stname[0]!="select states")||($stname[0]!="select states	"))
                                 {{ $stname[0] }}
                                 @endif
                                 @endif
                             </td>
                             <td class="px-4 py-3">
                                 @if(!empty($city))
-                                @if($stname[0]!="select cities")
+                                @if(($stname[0]!="select cities")||($stname[0]!="select cities	"))
                                 {{ $city[0] }}
                                 @endif
 
