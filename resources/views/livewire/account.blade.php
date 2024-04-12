@@ -14,9 +14,21 @@
             z-index: 9999;
             /* Ensure it's on top of other content */
         }
+
+        th, td {
+            text-wrap: nowrap;
+        }
     </style>
 
-
+<style>
+    .inline-container {
+      display: inline-block;
+      vertical-align: middle; /* Optional: Aligns the image and text vertically */
+    }
+    .inline-container img {
+      vertical-align: middle; /* Optional: Aligns the image and text vertically */
+    }
+  </style>
 
     <section class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
         <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
@@ -76,7 +88,7 @@
                         <th scope="col" class="px-5 py-2">
                             Time Zone
                         </th>
-                        <th scope="col" class="px-5 py-2">
+                        <th scope="col" align="right" class="px-5 py-2">
                             Action
                         </th>
                         {{-- <th scope="col" class="px-5 py-2 text-right">
@@ -95,10 +107,42 @@
                         $stname=array_unique(explode(",",$accounts->stname));
                         $timezone=array_unique(explode(",",$accounts->timezone));
                         $city=array_unique(explode(",",$accounts->cityname));
+                        $accountname=explode(" ",$accounts->name);
                     @endphp
+                       @php
+                       $c1=substr($accountname[0], 0, 1);
+                       if(array_key_exists(1,$accountname))
+                       {
+                            $c2=substr($accountname[1], 0, 1);
+                       }
+                       else{
+                        $c2="";
+                       }
+                       if(array_key_exists(2,$accountname))
+                       {
+                            $c3=substr($accountname[2], 0, 1);
+                       }
+                       else{
+                        $c3="";
+                       }
+                    @endphp
+
                         <tr class="border-b dark:border-gray-700">
-                            <td class="px-4 py-3 text-right"> <a href="account/update/{{ $accounts->id }}">{{ $accounts->id }}</td>
-                            <td class="px-4 py-3"> <a href="account/update/{{ $accounts->id }}">{{ $accounts->name }}</td>
+                            <td class="px-4 py-3 text-right"> <a href="account/update/{{ $accounts->id }}">{{ $accounts->id }}</a>
+                                {{-- <img style="vertical-align: middle;" src="https://ui-avatars.com/api/?name={{ $c1 }}+{{ $c2 }}+{{ $c3 }}&color=7F9CF5&background=random&size=38&rounded=true" alt="Image"> --}}
+                            </td>
+                            <td class="px-4 py-3">
+
+
+                                    <a style="display: inline-flex;" href="account/update/{{ $accounts->id }}">
+                                    <img src="https://ui-avatars.com/api/?name={{ $c1 }}+{{ $c2 }}+{{ $c3 }}&color=7F9CF5&background=random&size=38&rounded=true"
+                                    alt="Image">
+
+                                           &nbsp;&nbsp; {{ $accounts->name }}
+                                        </a>
+
+
+                        </td>
                             <td class="px-4 py-3">
                                 @foreach ($companyphone as $val)
                                 <a href="callto:{{ $val }}">{{$val}}</a><br>
@@ -140,9 +184,9 @@
                                 {{ $timezone[0] }}
                                 @endif
                             </td>
-                            <td class="px-4 py-3">
+                            <td class="px-4 py-3" align="right">
                                 <a href="account/update/{{ $accounts->id }}">
-                                <x-lucide-pencil style="color: #3253e6" width="20" height="20" />
+                                    <x-lucide-pencil style="color: #3253e6" width="20" height="20" />
                                 </a>
                             </td>
                             {{-- <td class="px-4 py-3 text-right"> --}}
