@@ -135,7 +135,7 @@
 
 
                                     <a style="display: inline-flex;" href="account/update/{{ $accounts->id }}">
-                                    <img src="https://ui-avatars.com/api/?name={{ $c1 }}+{{ $c2 }}+{{ $c3 }}&color=7F9CF5&background=random&size=38&rounded=true"
+                                    <img src="https://ui-avatars.com/api/?name={{ $c1 }}+{{ $c2 }}+{{ $c3 }}&color=7F9CF5&background=random&size=25&rounded=true"
                                     alt="Image">
 
                                            &nbsp;&nbsp; {{ $accounts->name }}
