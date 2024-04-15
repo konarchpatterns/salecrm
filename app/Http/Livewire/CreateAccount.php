@@ -8,8 +8,10 @@ use Redirect;
 use App\Models\Company;
 use App\Models\CompanyLocation;
 
+use Illuminate\Support\Facades\Auth;
 use App\Models\Country;
 use App\Models\State;
+use App\Models\User;
 use App\Models\City;
 use App\Models\CompanyPhone;
 use App\Models\CompanyEmail;
