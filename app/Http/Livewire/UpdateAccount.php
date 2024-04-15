@@ -16,6 +16,7 @@ use App\Models\CompanyEmail;
 use App\Models\CompanyBusiness;
 use App\Models\User;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateAccount extends Component
 {
@@ -50,6 +51,10 @@ class UpdateAccount extends Component
     public $accountid;
     public $assign_to;
     public $assign_by;
+    public $userslist;
+    public $selectuserslist;
+    public $select_user_id = 0;
+    public $user_id = 0;
 
 
     public function addInput()
@@ -83,6 +88,13 @@ class UpdateAccount extends Component
                         ->leftjoin('states','company_locations.state_id','=','states.id')
                         ->leftjoin('cities','company_locations.city_id','=','cities.id')
                          ->where('companies.id','=',$accountid)->get();
+
+                         $this->userslist = User::select('id','name')->where('flag','!=',1)
+                         ->where('designation','=',9)
+                         ->get();
+                         $this->selectuserslist = User::select('id','name')->where('flag','!=',1)
+                         ->where('designation','=',9)->where('id','=',$company[0]['assign_to'])
+                         ->get();
 
                          $user1=User::find($company[0]['assign_by']);
                          $user2=User::find($company[0]['assign_to']);
@@ -157,6 +169,10 @@ class UpdateAccount extends Component
                     }
     }
 
+    public function getgetUserId(){
+        $this->userlist =$this->user_id;
+    }
+
 
     // Fetch states of a country
     public function getCountryStates(){
@@ -202,7 +218,9 @@ class UpdateAccount extends Component
         Company::where("id", $this->accountid)->update([
             "name"=>$this->name,
             "website"=>$this->website,
-            "fax"=>$this->fax
+            "fax"=>$this->fax,
+            "assign_by"=>Auth::id(),
+            "assign_to"=>$this->userlist
         ]);
     }
     else{

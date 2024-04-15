@@ -262,21 +262,19 @@
                                                  placeholder="enter zip" wire:model="assign_by"  autocomplete="off">
                                             </div>
                                             <div class="w-full">
-                                                <label for="assignto" class="block text-sm font-medium text-gray-700">Assign To</label>
-                                                <input type="text"  class="mt-1 focus:ring-blue-500 focus:border-indigo-500
-                                                block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                                 placeholder="enter zip" wire:model="assign_to"  autocomplete="off">
-                                                {{-- <select class="mt-1 block w-full py-2 px-3 border border-gray-300
-                                                 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500
-                                                  focus:border-indigo-500 sm:text-sm" wire:model="timezone">
-                                                            <option value="">-- select timezone --</option>
-                                                             <option value="EST">EST</option>
-                                                             <option value="CST">CST</option>
-                                                             <option value="PST">PST</option>
-                                                             <option value="MST">MST</option>
-                                                             <option value="AST">AST</option>
-                                                             <option value="HST">HST</option>
-                                                </select> --}}
+                                                <label for="users" class="block text-sm font-medium text-gray-700">Assign To</label>
+                                                <select class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md
+                                                 shadow-sm focus:outline-none focus:ring-indigo-500
+                                                  focus:border-indigo-500 sm:text-sm" id="user_id" wire:model="user_id" wire:change="getgetUserId">
+                                                  @foreach ($selectuserslist as $key=>$val)
+                                                  <option value="{{$val['id']}}">{{$val['name']}}</option>
+                                                  @endforeach
+                                                  <option value="">-- Select User --</option>
+                                                   @foreach ($userslist as $key=>$val)
+                                                   <option value="{{$val['id']}}">{{$val['name']}}</option>
+                                                   @endforeach
+
+                                               </select>
                                             </div>
                                         </div>
 
