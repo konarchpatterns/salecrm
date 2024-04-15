@@ -59,28 +59,24 @@
 
 
 
-                  <div class="grid grid-cols-3  gap-2">
-                    @php
-                        $userlist=json_decode($users[0],true);
-                        @endphp
-                      <div class="w-full">
-                        <label for="assignto" class="block text-sm font-medium text-gray-700">Assign To</label>
-                       <select class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md
-                        shadow-sm focus:outline-none focus:ring-indigo-500
-                         focus:border-indigo-500 sm:text-sm" id="users" wire:model.defer="users" >
-                          <option value="">-- Select User --</option>
-                          @foreach ($userlist as $key=>$val)
-                          <option value="{{$userlist[$key]['id']}}">{{$userlist[$key]['name']}}</option>
-                          @endforeach
+                    <div class="grid grid-cols-3  gap-2">
 
-                      </select>
+                        <div class="w-full">
+                          <label for="users" class="block text-sm font-medium text-gray-700">Assign To</label>
+                         <select class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md
+                          shadow-sm focus:outline-none focus:ring-indigo-500
+                           focus:border-indigo-500 sm:text-sm" id="user_id" wire:model="user_id" wire:change="getgetUserId">
+                            <option value="">-- Select User --</option>
+                            @foreach ($userslist as $key=>$val)
+                            <option value="{{$val['id']}}">{{$val['name']}}</option>
+                            @endforeach
 
+                        </select>
+
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="w-full text-red-600">
-                    @error('users') <span class="error">{{ $message }}</span> @enderror
-                </div>
+
                   </div>
 
 
