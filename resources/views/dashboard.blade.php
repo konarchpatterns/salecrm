@@ -640,7 +640,7 @@
                   }
                 }
               </script>
-
+--}}
             </main>
     </div>
      @livewireScripts

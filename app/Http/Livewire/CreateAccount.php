@@ -40,6 +40,8 @@ class CreateAccount extends Component
     public $timezone;
     public $business_type;
     public $description;
+    public $userslist;
+    public $user_id = 0;
 
 
 
@@ -76,6 +78,9 @@ protected $rules = [
     public function mount(){
         $this->countries = Country::orderby('name','asc')
                             ->select('*')->where('id','!=','249')
+                            ->get();
+        $this->userslist = User::select('id','name')->where('flag','!=',1)
+                            ->where('designation','=',9)
                             ->get();
         $this->fill([
                                 'inputs' => collect([['companyphones' => '']]),
@@ -118,7 +123,10 @@ protected $rules = [
             [
                 "name"=>$this->name,
                 "fax"=>$this->fax,
-                "website"=>$this->website
+                "website"=>$this->website,
+                "assign_by"=>Auth::id(),
+                "create_user_id"=>Auth::id(),
+                "assign_to"=>$this->userlist
                 ]
         );
         if($ins)
@@ -177,6 +185,11 @@ protected $rules = [
         flash()->addSuccess('Your account has been added successfully.');
 
         return redirect::route('account.index');
+    }
+
+
+    public function getgetUserId(){
+        $this->userlist =$this->user_id;
     }
 
     public function render()
