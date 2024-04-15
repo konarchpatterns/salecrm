@@ -13,40 +13,41 @@
                  <x-lucide-building-2  class="w-5 h-5 @if(request()->routeIs('account.index')) text-blue-600 @else text-gray-500 @endif" />
             </x-nav-link>
         </li>
+        @role('Admin')
 
+        @role('Business Development Manager')
         <li>
             <x-nav-link href="{{ route('clients.index') }}"  id="client" title="{{ __('Clients') }}" :active="request()->routeIs('clients.index')">
                  <x-lucide-building-2  class="w-5 h-5 @if(request()->routeIs('clients.index')) text-blue-600 @else text-gray-500 @endif" />
             </x-nav-link>
         </li>
-        <li>
-            <x-nav-link href="{{ route('roles.index') }}"  id="roles" title="{{ __('Roles') }}" :active="request()->routeIs('roles.index')">
-                 <x-lucide-shield  class="w-5 h-5   @if(request()->routeIs('roles.index')) text-blue-600 @else text-gray-500 @endif" />
-            </x-nav-link>
-        </li>
-        <li>
-            <x-nav-link href="{{ route('permissions.index') }}"  id="permissions" title="{{ __('Permissions') }}" :active="request()->routeIs('permissions.index')">
-                 <x-lucide-hand  class="w-5 h-5   @if(request()->routeIs('permissions.index')) text-blue-600 @else text-gray-500 @endif" />
-            </x-nav-link>
-        </li>
-        <li>
-            <x-nav-link href="{{ route('groups.index') }}"  id="groups" title="{{ __('Groups') }}" :active="request()->routeIs('groups.index')">
-                 <x-lucide-hand  class="w-5 h-5 @if(request()->routeIs('groups.index')) text-blue-600 @else text-gray-500 @endif" />
-            </x-nav-link>
-        </li>
-
-        <li>
-            <x-nav-link href="{{ route('users.index') }}"  id="users" title="{{ __('Users') }}" :active="request()->routeIs('users.index')">
-                 <x-lucide-user  class="w-5 h-5 @if(request()->routeIs('users.index')) text-blue-600 @else text-gray-500 @endif" />
-            </x-nav-link>
-        </li>
 
 
+@endrole
+@endrole
+@role('Admin')
+<li>
+    <x-nav-link href="{{ route('roles.index') }}"  id="roles" title="{{ __('Roles') }}" :active="request()->routeIs('roles.index')">
+         <x-lucide-shield  class="w-5 h-5   @if(request()->routeIs('roles.index')) text-blue-600 @else text-gray-500 @endif" />
+    </x-nav-link>
+</li>
+<li>
+    <x-nav-link href="{{ route('permissions.index') }}"  id="permissions" title="{{ __('Permissions') }}" :active="request()->routeIs('permissions.index')">
+         <x-lucide-hand  class="w-5 h-5   @if(request()->routeIs('permissions.index')) text-blue-600 @else text-gray-500 @endif" />
+    </x-nav-link>
+</li>
+<li>
+    <x-nav-link href="{{ route('groups.index') }}"  id="groups" title="{{ __('Groups') }}" :active="request()->routeIs('groups.index')">
+         <x-lucide-hand  class="w-5 h-5 @if(request()->routeIs('groups.index')) text-blue-600 @else text-gray-500 @endif" />
+    </x-nav-link>
+</li>
 
-
-
-
-
+<li>
+    <x-nav-link href="{{ route('users.index') }}"  id="users" title="{{ __('Users') }}" :active="request()->routeIs('users.index')">
+         <x-lucide-user  class="w-5 h-5 @if(request()->routeIs('users.index')) text-blue-600 @else text-gray-500 @endif" />
+    </x-nav-link>
+</li>
+@endrole
 
        </ul>
     </div>
