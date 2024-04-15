@@ -10,7 +10,7 @@
                   <div class="grid grid-cols-3  gap-2">
                     <div class="w-full">
                       <label for="company" class="block text-sm font-medium text-gray-700">Company name</label>
-                      <input type="text"  wire:model="name"  autocomplete="name" class="mt-1 focus:ring-blue-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                      <input type="text" @role('Sales Executives') disabled @endrole wire:model="name"  autocomplete="name" class="mt-1 focus:ring-blue-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                     </div>
 
                     <div class="w-full">
