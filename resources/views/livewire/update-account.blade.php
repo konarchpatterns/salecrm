@@ -10,16 +10,16 @@
                   <div class="grid grid-cols-3  gap-2">
                     <div class="w-full">
                       <label for="company" class="block text-sm font-medium text-gray-700">Company name</label>
-                      <input type="text" @role('Sales Executives') disabled @endrole wire:model="name"  autocomplete="name" class="mt-1 focus:ring-blue-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                      <input type="text"  wire:model="name"  autocomplete="name" @role('Sales Executives') disabled @endrole  class="mt-1 focus:ring-blue-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                     </div>
 
                     <div class="w-full">
                         <label for="fax" class="block text-sm font-medium text-gray-700">Fax No</label>
-                        <input type="text"  wire:model="fax" autocomplete="family-name" class="mt-1 focus:ring-blue-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                        <input type="text"  wire:model="fax"  @role('Sales Executives') disabled @endrole autocomplete="family-name" class="mt-1 focus:ring-blue-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                       </div>
                       <div class="w-full">
                         <label for="website" class="block text-sm font-medium text-gray-700">Website</label>
-                        <input type="text"   wire:model="website" autocomplete="website" class="mt-1 focus:ring-blue-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                        <input type="text"   wire:model="website"  @role('Sales Executives') disabled @endrole autocomplete="website" class="mt-1 focus:ring-blue-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                       </div>
                   </div>
                   <div class="grid grid-cols-3  gap-2">
@@ -40,7 +40,7 @@
                             @foreach($inputs as $key => $input)
                             <div class="grid grid-cols-3  gap-2">
                                 <div class="w-full">
-                                    <input type="text" id="input_{{$key}}_companyphones" wire:model.defer="inputs.{{$key}}.companyphones" class="mt-1 focus:ring-blue-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="enter company phone" autocomplete="off">
+                                    <input type="text"  @role('Sales Executives') disabled @endrole id="input_{{$key}}_companyphones" wire:model.defer="inputs.{{$key}}.companyphones" class="mt-1 focus:ring-blue-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="enter company phone" autocomplete="off">
 
                                     @error('inputs.'.$key.'.companyphones') <span class="text-xs text-red-600">{{ $message }}</span> @enderror
                                 </div>
@@ -48,7 +48,7 @@
 
                                     <select class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md
                                     shadow-sm focus:outline-none focus:ring-indigo-500
-                                     focus:border-indigo-500 sm:text-sm" id="input_{{$key}}_companyphonestype" wire:model.defer="inputs.{{$key}}.companyphonestype" >
+                                     focus:border-indigo-500 sm:text-sm"  @role('Sales Executives') disabled @endrole id="input_{{$key}}_companyphonestype" wire:model.defer="inputs.{{$key}}.companyphonestype" >
 
                                      <option value="">-- Select phone type --</option>
 
@@ -63,18 +63,22 @@
 
                                 </div>
                                 @if($key > 0)
+                                @canany(['accounts.create','accounts.edit'])
                                 <div wire:click="removeInput({{$key}})" class="flex  text-red-600 text-sm w-full cursor-pointer">
                                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
                                     <p>Remove</p>
                                 </div>
+                                @endcanany
                                 @endif
                             </div>
                             @endforeach
 
+                            @canany(['accounts.create','accounts.edit'])
                             <button type="button" wire:click="addInput" class="flex items-center justify-center text-blue-600 text-sm py-4 w-full cursor-pointer">
                                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd"></path></svg>
                                 <p class="ml-2">Add New Phone</p>
                             </button>
+                            @endcanany
 
                             <div class="col-span-6 sm:col-span-3 ">
 
@@ -83,13 +87,13 @@
                                         @foreach($companymail as $key => $input)
                                         <div class="grid grid-cols-3  gap-2">
                                             <div class="w-full">
-                                                <input type="email" id="companymail_{{$key}}_companyemails" wire:model.defer="companymail.{{$key}}.companyemails" class="mt-1 focus:ring-blue-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="enter company email" autocomplete="off">
+                                                <input @role('Sales Executives')  disabled @endrole type="email" id="companymail_{{$key}}_companyemails" wire:model.defer="companymail.{{$key}}.companyemails" class="mt-1 focus:ring-blue-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="enter company email" autocomplete="off">
 
                                                 @error('companymail.'.$key.'.companyemails') <span class="text-xs text-red-600">{{ $message }}</span> @enderror
                                             </div>
                                             <div class="w-full">
 
-                                                <select class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md
+                                                <select @role('Sales Executives')  disabled @endrole class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md
                                                 shadow-sm focus:outline-none focus:ring-indigo-500
                                                  focus:border-indigo-500 sm:text-sm" id="companymail_{{$key}}_companyemailstype" wire:model.defer="companymail.{{$key}}.companyemailstype" >
                                                   <option value="">-- Select email type --</option>
@@ -105,19 +109,22 @@
 
                                             </div>
                                             @if($key > 0)
+                                            any(['accounts.create','accounts.edit'])
                                             <div wire:click="removeInputEmail({{$key}})" class="flex  text-red-600 text-sm w-full cursor-pointer">
                                                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
                                                 <p>Remove</p>
                                             </div>
+                                             @endcanany
                                             @endif
                                         </div>
                                         @endforeach
 
+                                        @canany(['accounts.create','accounts.edit'])
                                         <button type="button" wire:click="addInputEmail" class="flex items-center justify-center text-blue-600 text-sm py-4 w-full cursor-pointer">
                                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd"></path></svg>
                                             <p class="ml-2">Add New Email</p>
                                         </button>
-
+                                        @endcanany
 
                                         <div class="col-span-6 sm:col-span-3 ">
 
@@ -127,14 +134,15 @@
                                             <div class="w-full">
                                                  <label for="houseno" class="block text-sm font-medium text-gray-700">House / No</label>
 
-                                                 <input type="text" wire:model="block"   class="mt-1 focus:ring-blue-500 focus:border-indigo-500
+                                                 <input type="text" wire:model="block"
+                                                 @role('Sales Executives')  disabled @endrole  class="mt-1 focus:ring-blue-500 focus:border-indigo-500
                                                  block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="enter house no" autocomplete="off">
 
                                                </div>
                                                <div class="w-full">
                                                 <label for="street"  class="block text-sm font-medium text-gray-700">Street</label>
 
-                                                <input type="text"  wire:model="street"  class="mt-1 focus:ring-blue-500 focus:border-indigo-500
+                                                <input type="text"  @role('Sales Executives')  disabled @endrole  wire:model="street"  class="mt-1 focus:ring-blue-500 focus:border-indigo-500
                                                 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="enter street" autocomplete="off">
 
                                               </div>
@@ -142,7 +150,7 @@
                                               <div class="w-full">
                                                 <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
 
-                                                <input type="text" wire:model="address"  class="mt-1 focus:ring-blue-500 focus:border-indigo-500
+                                                <input type="text"   @role('Sales Executives')  disabled @endrole wire:model="address"  class="mt-1 focus:ring-blue-500 focus:border-indigo-500
                                                 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="enter address" autocomplete="off">
 
                                               </div>
@@ -153,7 +161,7 @@
                                               <label for="country" class="block text-sm font-medium text-gray-700">Country / Region</label>
 
 
-                                              <select class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                              <select  @role('Sales Executives')  disabled @endrole class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                                wire:model="country_id" wire:change="getCountryStates">
                                                 @if(count($selectcountries)<1)
                                                 <option value="249">-- Select Country --</option>
@@ -172,7 +180,7 @@
                                             <div class="w-full">
                                                 <label for="state" class="block text-sm font-medium text-gray-700">State</label>
 
-                                                <select  class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none
+                                                <select  @role('Sales Executives')  disabled @endrole class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none
                                                  focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" wire:model="state_id" wire:change="getStateCities">
 
                                                     @if(!empty($selectstates)<1)
@@ -197,7 +205,7 @@
                                             <div class="w-full">
 
                                                 <label for="city" class="block text-sm font-medium text-gray-700">City</label>
-                                                <select class="mt-1 block w-full py-2 px-3 border border-gray-300
+                                                <select  @role('Sales Executives')  disabled @endrole class="mt-1 block w-full py-2 px-3 border border-gray-300
                                                  bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500
                                                   focus:border-indigo-500 sm:text-sm" wire:model="city_id">
                                                   @if(!empty($selectcity)<1)
@@ -231,13 +239,13 @@
                                             <div class="w-full">
 
                                                 <label for="zip" class="block text-sm font-medium text-gray-700">Zip Code</label>
-                                                <input type="text"  class="mt-1 focus:ring-blue-500 focus:border-indigo-500
+                                                <input type="text"  @role('Sales Executives')  disabled @endrole  class="mt-1 focus:ring-blue-500 focus:border-indigo-500
                                                 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                                  placeholder="enter zip" wire:model="zip"  autocomplete="off">
                                             </div>
                                             <div class="w-full">
                                                 <label for="time" class="block text-sm font-medium text-gray-700">Timezone</label>
-                                                <select class="mt-1 block w-full py-2 px-3 border border-gray-300
+                                                <select  @role('Sales Executives')  disabled @endrole class="mt-1 block w-full py-2 px-3 border border-gray-300
                                                  bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500
                                                   focus:border-indigo-500 sm:text-sm" wire:model="timezone">
                                                             <option value="">-- select timezone --</option>
@@ -257,24 +265,42 @@
                                             <div class="w-full">
 
                                                 <label for="assignby" class="block text-sm font-medium text-gray-700">Assign By</label>
-                                                <input type="text"  class="mt-1 focus:ring-blue-500 focus:border-indigo-500
+                                                <input type="text"  @role('Sales Executives')  disabled @endrole  class="mt-1 focus:ring-blue-500 focus:border-indigo-500
                                                 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                                  placeholder="enter zip" wire:model="assign_by"  autocomplete="off">
                                             </div>
-                                            <div class="w-full">
-                                                <label for="users" class="block text-sm font-medium text-gray-700">Assign To</label>
-                                                <select class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md
-                                                 shadow-sm focus:outline-none focus:ring-indigo-500
-                                                  focus:border-indigo-500 sm:text-sm" id="user_id" wire:model="user_id" wire:change="getgetUserId">
-                                                  @foreach ($selectuserslist as $key=>$val)
-                                                  <option value="{{$val['id']}}">{{$val['name']}}</option>
-                                                  @endforeach
-                                                  <option value="">-- Select User --</option>
-                                                   @foreach ($userslist as $key=>$val)
-                                                   <option value="{{$val['id']}}">{{$val['name']}}</option>
-                                                   @endforeach
 
-                                               </select>
+                                                    <div class="w-full">
+                                                      <label for="users" class="block text-sm font-medium text-gray-700">Assign To</label>
+                                                     <select  @role('Sales Executives')  disabled @endrole class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md
+                                                      shadow-sm focus:outline-none focus:ring-indigo-500
+                                                       focus:border-indigo-500 sm:text-sm" id="user_id" wire:model="user_id" wire:change="getgetUserId">
+                                                       @foreach ($selectuserslist as $key=>$val)
+                                                       <option value="{{$val['id']}}">{{$val['name']}}</option>
+                                                       @endforeach
+                                                       <option value="">-- Select User --</option>
+                                                        @foreach ($userslist as $key=>$val)
+                                                        <option value="{{$val['id']}}">{{$val['name']}}</option>
+                                                        @endforeach
+
+                                                    </select>
+
+                                                  </div>
+
+                                                {{-- <input type="text"  class="mt-1 focus:ring-blue-500 focus:border-indigo-500
+                                                block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                 placeholder="enter zip" wire:model="assign_to"  autocomplete="off"> --}}
+                                                {{-- <select class="mt-1 block w-full py-2 px-3 border border-gray-300
+                                                 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500
+                                                  focus:border-indigo-500 sm:text-sm" wire:model="timezone">
+                                                            <option value="">-- select timezone --</option>
+                                                             <option value="EST">EST</option>
+                                                             <option value="CST">CST</option>
+                                                             <option value="PST">PST</option>
+                                                             <option value="MST">MST</option>
+                                                             <option value="AST">AST</option>
+                                                             <option value="HST">HST</option>
+                                                </select> --}}
                                             </div>
                                         </div>
 
@@ -290,7 +316,7 @@
                                             <div class="w-full">
 
                                                 <label for="business_type" class="block text-sm font-medium text-gray-700">Business</label>
-                                                <select class="mt-1 block w-full py-2 px-3 border border-gray-300
+                                                <select  @role('Sales Executives')  disabled @endrole class="mt-1 block w-full py-2 px-3 border border-gray-300
                                                  bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500
                                                   focus:border-indigo-500 sm:text-sm" wire:model="business_type">
                                                     <option value="0">-- Select Business Type --</option>
@@ -301,7 +327,7 @@
 
                                             <div class="w-full">
                                                 <label for="description" class="block text-sm font-medium text-gray-700">description</label>
-                                                <textarea type="text"  class="mt-1 focus:ring-blue-500 focus:border-indigo-500
+                                                <textarea  @role('Sales Executives')  disabled @endrole type="text"  class="mt-1 focus:ring-blue-500 focus:border-indigo-500
                                                 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                                  placeholder="enter description" wire:model="description"  autocomplete="off">
 
@@ -319,12 +345,14 @@
                                         </div>
                   </div>
                 </div>
+                @canany(['accounts.create','accounts.edit'])
                 <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
                   <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-700 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                     Update
                   </button>
 
                 </div>
+                 @endcanany
               </div>
             </form>
           </div>
