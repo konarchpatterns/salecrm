@@ -17,13 +17,39 @@
                 </button> --}}
                 @endif
                 @if ($userButton != null)
+                @if ($userButton == "Add New Account")
+                @can(['accounts.create'])
             <a href="{{ route($secLink) }}"
             class="px-3 py-2  mr-3 text-xs font-medium text-center text-white
              bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none
               focus:ring-blue-300">{{ $userButton }}</a>
+              @endcan
+              @else
+              <a href="{{ route($secLink) }}"
+              class="px-3 py-2  mr-3 text-xs font-medium text-center text-white
+               bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none
+                focus:ring-blue-300">{{ $userButton }}</a>
+              @endif
             @endif
             @if ($userButtonss != null)
-            <a href="{{ route($secLinkss,['id'=>$companyidss]) }}" class="px-3 py-2  mr-3 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">{{ $userButtonss }}</a>
+
+            @if ($userButtonss == "Create new client")
+            @canany(['Can Edit Client','Can Create Client'])
+            <a href="{{ route($secLinkss,['id'=>$companyidss]) }}"
+                 class="px-3 py-2  mr-3 text-xs font-medium text-center
+                  text-white bg-blue-700 rounded-lg hover:bg-blue-800
+                  focus:ring-4 focus:outline-none focus:ring-blue-300">
+                  {{ $userButtonss }}</a>
+                  @endcanany
+
+                  @else
+                  <a href="{{ route($secLinkss,['id'=>$companyidss]) }}"
+                    class="px-3 py-2  mr-3 text-xs font-medium text-center
+                     text-white bg-blue-700 rounded-lg hover:bg-blue-800
+                     focus:ring-4 focus:outline-none focus:ring-blue-300">
+                     {{ $userButtonss }}</a>
+                     @endif
+
             @endif
             @if ($viewClietns != null)
             <a href="{{ route($clientsLink, ['id' => $id]) }}" class="px-3 py-2  mr-3 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">{{ $viewClietns }}</a>
