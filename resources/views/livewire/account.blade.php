@@ -185,9 +185,16 @@
                                 @endif
                             </td>
                             <td class="px-4 py-3" align="right">
+                                @can('accounts.edit')
                                 <a href="account/update/{{ $accounts->id }}">
                                     <x-lucide-pencil style="color: #3253e6" width="20" height="20" />
                                 </a>
+                                @endcan
+                                @cannot('accounts.edit')
+                                <a href="account/update/{{ $accounts->id }}">
+                                    <x-lucide-eye style="color: #ac1db9" width="20" height="20" />
+                                </a>
+                                @endcannot
                             </td>
                             {{-- <td class="px-4 py-3 text-right"> --}}
 
