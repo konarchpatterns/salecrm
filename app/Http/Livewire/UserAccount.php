@@ -19,6 +19,32 @@ class Useraccount extends Component
     public $search = '';
 
     protected $paginationTheme = 'tailwind'; // Optional: if you want to use Bootstrap styling for pagination
+
+    public $isOpen = false;
+    public $modalData = '';
+    public $companymodalData = '';
+
+    public $isOpennew = false;
+    public function openModal($mobile,$company)
+    {
+        $this->modalData = $mobile;
+        $this->companymodalData = $company;
+        $this->isOpen = true;
+    }
+    public function opennewModal()
+    {
+
+        $this->isOpen = false;
+        $this->isOpennew = true;
+    }
+
+    public function closeModal()
+    {
+        $this->isOpen = false;
+    }
+
+
+
     public function updatingSearch()
     {
         $this->resetPage();
