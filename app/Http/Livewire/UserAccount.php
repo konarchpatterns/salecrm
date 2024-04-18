@@ -2,6 +2,9 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Company;
+use App\Models\Disposition;
+use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;
