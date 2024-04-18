@@ -1,5 +1,7 @@
 <div>
     <style>
+
+
         .loader {
             display: flex;
             justify-content: center;
@@ -147,14 +149,14 @@
                                 @foreach ($companyphone as $val)
                                 {{-- <a href="callto:{{ $val }}">{{$val}}</a> --}}
 
-                                <a href="#" wire:click="openModal('{{$val}}','{{$accounts->name}}')">{{$val}}</a>
+                                <a href="#" wire:click="openModal('{{$val}}','{{$accounts->name}}','{{$accounts->id}}')">{{$val}}</a>
                                <br>
 
 
                             @endforeach
 
                             @foreach ($clientphone as $val)
-                            <a href="#" wire:click="openModal('{{$val}}','{{$accounts->name}}')">{{$val}}</a><br>
+                            <a href="#" wire:click="openModal('{{$val}}','{{$accounts->name}}','{{$accounts->id}}')">{{$val}}</a><br>
                         @endforeach
                             </td>
                             <td class="px-4 py-3">
@@ -253,11 +255,14 @@
           <div class="px-4 py-5 sm:p-6">
               <h3 class="text-lg font-medium text-gray-900">All Disposition</h3>
 
-                <form>
+                <form wire:submit.prevent="disposubmission">
                     <div class="grid gap-6 mb-6 md:grid-cols-2">
                         <div>
-                            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Disposition Type</label>
-                            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <label for="disposition_status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Disposition Type</label>
+                            <select wire:change='opentimedata' name="disposition_status" wire:model="disposition_status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                             focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700
+                              dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+                               dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option value="">---Select Disposition---</option>
                                 <option value="Doesn't Qualify">Doesn't Qualify</option>
                                 <option value="Sale">Sale</option>
@@ -280,44 +285,74 @@
                                 <option value="Already Client">Already Client</option>
                             </select>
                        </div>
-
-
+                       <div>
+                        @error('disposition_status') <span class="error" style="color: red">{{ $message }}</span> @enderror
                     </div>
 
+                    </div>
+                    @if($isOpentime)
                     <div class="mb-6">
-                        <label for="time" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Schedule Date</label>
+                        <label for="dispo_date"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Schedule Date</label>
                     </div>
 
                     <div class="mb-6">
                         <div class="relative max-w-sm">
-                            <input datepicker datepicker-orientation="bottom right" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
+                            <input name="disposition_date" wire:model="disposition_date"
+                            datepicker datepicker-orientation="bottom right"
+                            type="date" class="bg-gray-50 border border-gray-300 text-gray-900
+                            text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full
+                            ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                             dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                             placeholder="Select date">
                           </div>
                         </div>
+                        <div>
+                            @error('disposition_date') <span class="error" style="color: red">{{ $message }}</span> @enderror
+                        </div>
                     <div class="mb-6">
-                        <label for="time" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Schedule Time</label>
+                        <label for="disposition_time" class="block mb-2 text-sm font-medium text-gray-900
+                         dark:text-white">Schedule Time</label>
                         <div class="flex">
-                        <input type="time" id="time" class="flex-shrink-0 rounded-none rounded-s-lg bg-gray-50 border text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500 block text-sm border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" min="09:00" max="18:00" value="00:00" required>
-                        <select id="timezones" name="timezone" class="bg-gray-50 border border-s-0 border-gray-300 text-gray-900 text-sm rounded-e-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                            <option value="America/New_York" selected>EST - GMT-5 (New York)</option>
-                            <option value="America/Los_Angeles">PST - GMT-8 (Los Angeles)</option>
-                            <option value="Europe/London">GMT - GMT+0 (London)</option>
-                            <option value="Europe/Paris">CET - GMT+1 (Paris)</option>
-                            <option value="Asia/Tokyo">JST - GMT+9 (Tokyo)</option>
-                            <option value="Australia/Sydney">AEDT - GMT+11 (Sydney)</option>
-                            <option value="Canada/Mountain">MST - GMT-7 (Canada)</option>
-                            <option value="Canada/Central">CST - GMT-6 (Canada)</option>
-                            <option value="Canada/Eastern">EST - GMT-5 (Canada)</option>
-                            <option value="Europe/Berlin">CET - GMT+1 (Berlin)</option>
-                            <option value="Asia/Dubai">GST - GMT+4 (Dubai)</option>
-                            <option value="Asia/Singapore">SGT - GMT+8 (Singapore)</option>
+                        <input type="time"
+                         name="disposition_time" wire:model="disposition_time" id="time"
+                          class="flex-shrink-0 rounded-none rounded-s-lg bg-gray-50 border
+                           text-gray-900 leading-none focus:ring-blue-500 focus:border-blue-500
+                            block text-sm border-gray-300 p-2.5 dark:bg-gray-700 dark:border-gray-600
+                             dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
+                              dark:focus:border-blue-500" min="09:00" max="18:00" value="00:00">
+                        <select id="timezones" name="disposition_timezone"  wire:model="disposition_timezone"
+                        class="bg-gray-50 border border-s-0 border-gray-300 text-gray-900 text-sm rounded-e-lg
+                         focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700
+                          dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
+                           dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option value="EST" selected>EST - GMT-5 (New York)</option>
+                            <option value="PST">PST - GMT-8 (Los Angeles)</option>
+                            <option value="GMT">GMT - GMT+0 (London)</option>
+                            <option value="CET">CET - GMT+1 (Paris)</option>
+                            <option value="JST">JST - GMT+9 (Tokyo)</option>
+                            <option value="AEDT">AEDT - GMT+11 (Sydney)</option>
+                            <option value="MST">MST - GMT-7 (Canada)</option>
+                            <option value="CST">CST - GMT-6 (Canada)</option>
+                            <option value="EST">EST - GMT-5 (Canada)</option>
+                            <option value="CET">CET - GMT+1 (Berlin)</option>
+                            <option value="GST">GST - GMT+4 (Dubai)</option>
+                            <option value="SGT">SGT - GMT+8 (Singapore)</option>
+                            <option value="IST">IST - GMT+5 (Mumbai,Kolkata,Delhi)</option>
                          </select>
                         </div>
                     </div>
-
+                    <div>
+                        @error('disposition_time') <span class="error" style="color: red">{{ $message }}</span> @enderror
+                    </div>
+                    <div>
+                        @error('disposition_timezone') <span class="error" style="color: red">{{ $message }}</span> @enderror
+                    </div>
+                @endif
 
                     <div class="mb-6">
-                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                        <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
+                        <label for="dispo_message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                        <textarea id="dispo_message" name="dispo_message" wire:model="dispo_message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
                     </div>
 
                     <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>

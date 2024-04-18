@@ -21,14 +21,22 @@ class Useraccount extends Component
     protected $paginationTheme = 'tailwind'; // Optional: if you want to use Bootstrap styling for pagination
 
     public $isOpen = false;
+    public $isOpennew = false;
+    public $isOpentime = false;
     public $modalData = '';
     public $companymodalData = '';
+    public $company_id = '';
+    public $dispo_message;
+    public $disposition_timezone;
+    public $disposition_time;
+    public $disposition_date;
+    public $disposition_status;
 
-    public $isOpennew = false;
-    public function openModal($mobile,$company)
+    public function openModal($mobile,$company,$companyid)
     {
         $this->modalData = $mobile;
         $this->companymodalData = $company;
+        $this->company_id = $companyid;
         $this->isOpen = true;
     }
     public function opennewModal()
@@ -38,12 +46,88 @@ class Useraccount extends Component
         $this->isOpennew = true;
     }
 
+    public function opentimedata()
+    {
+
+        if($this->disposition_status=="Follow Up")
+        {
+            $this->isOpentime = true;
+            }
+        elseif ($this->disposition_status=="Interested") {
+            $this->isOpentime = true;
+        }
+        elseif ($this->disposition_status=="Call Back") {
+            $this->isOpentime = true;
+        }
+        else{
+            $this->isOpentime = false;
+        }
+
+    }
+
     public function closeModal()
     {
         $this->isOpen = false;
     }
+    protected $rules = [
+        'disposition_status' => 'required'
+    ];
+    public function disposubmission()
+    {
+        if($this->disposition_status=="Follow Up")
+        {
+            $this->rules = [
+                'disposition_date' => 'required',
+                'disposition_timezone' => 'required',
+                'disposition_time' => 'required'
+
+            ];
+            }
+        elseif ($this->disposition_status=="Interested") {
+            $this->rules = [
+                'disposition_date' => 'required',
+                'disposition_timezone' => 'required',
+                'disposition_time' => 'required'
+
+            ];
+        }
+        elseif ($this->disposition_status=="Call Back") {
+            $this->rules = [
+                'disposition_date' => 'required',
+                'disposition_timezone' => 'required',
+                'disposition_time' => 'required'
+
+            ];
+
+        }
+        else{
+            $this->disposition_date=null;
+            $this->disposition_timezone=null;
+
+        }
+        $this->validate();
+        $insert=Disposition::create([
+            'user_id'=>Auth::id(),
+            'company_id'=>$this->company_id,
+            'description'=>$this->dispo_message,
+            'status'=>$this->disposition_status,
+            'followup_date'=>$this->disposition_date,
+            'followup_time'=>$this->disposition_time,
+            'timezone'=>$this->disposition_timezone,
+            'phone'=>$this->modalData
+        ]);
+        if($insert){
+            $userdetail=User::find(Auth::id());
+            flash()->addSuccess("thanks ".$userdetail->name." for submitting disposition for ".$this->companymodalData."");
+            $this->isOpennew = false;
+        }
+        else{
+
+            flash()->addError("disposition submission failed");
+        }
 
 
+    }
 
     public function updatingSearch()
     {
