@@ -149,14 +149,14 @@
                                 @foreach ($companyphone as $val)
                                 {{-- <a href="callto:{{ $val }}">{{$val}}</a> --}}
 
-                                <a href="#" wire:click="openModal('{{$val}}','{{$accounts->name}}','{{$accounts->id}}')">{{$val}}</a>
+                                <a href="#" wire:click.prevent="openModal('{{$val}}','{{$accounts->name}}','{{$accounts->id}}')">{{$val}}</a>
                                <br>
 
 
                             @endforeach
 
                             @foreach ($clientphone as $val)
-                            <a href="#" wire:click="openModal('{{$val}}','{{$accounts->name}}','{{$accounts->id}}')">{{$val}}</a><br>
+                            <a href="#" wire:click.prevent="openModal('{{$val}}','{{$accounts->name}}','{{$accounts->id}}')">{{$val}}</a><br>
                         @endforeach
                             </td>
                             <td class="px-4 py-3">
@@ -242,6 +242,335 @@
   @endif
 
 
+  <!-- Modal -->
+  @if($isOpenhistory)
+
+  <div class="fixed inset-0 overflow-y-auto z-50 flex items-center justify-center">
+    <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+        <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+    </div>
+    <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-2xl sm:w-full">
+        <!-- Modal content -->
+        <div class="px-4 py-5 sm:p-6">
+            <h3 class="text-lg font-medium text-gray-900">{{ $companymodalData }}</h3>
+{{--
+            <p> Do You Want To Call On This Number {{ $modalData }}</p> --}}
+            <p>
+                {{-- <style>
+                 .grid {
+position: relative;
+border: 1px solid #000;
+padding-top: 37px;
+background: #B34C00;
+width:100%;
+}
+.grid-container {
+overflow-y: auto;
+height: 300px;
+}
+table {
+border-spacing: 0;
+width:100%;
+}
+td + td {
+border-left:1px solid #000;
+}
+td, th {
+border-bottom:1px solid #000;
+background: #fff;
+color: #000;
+padding: 10px 25px;
+}
+th {
+height: 0;
+line-height: 0;
+padding-top: 0;
+padding-bottom: 0;
+color: transparent;
+border: none;
+white-space: nowrap;
+}
+th div{
+position: absolute;
+background: transparent;
+color: #fff;
+padding: 9px 25px;
+top: 0;
+margin-left: -25px;
+line-height: normal;
+border-left: 1px solid #800;
+}
+                    </style>
+
+
+
+ --}}
+
+
+ <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+<style>
+
+.timeline_area {
+    position: relative;
+    z-index: 1;
+}
+.single-timeline-area {
+    position: relative;
+    z-index: 1;
+    padding-left: 180px;
+}
+@media only screen and (max-width: 575px) {
+    .single-timeline-area {
+        padding-left: 100px;
+    }
+}
+.single-timeline-area .timeline-date {
+    position: absolute;
+    width: 180px;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -ms-grid-row-align: center;
+    align-items: center;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    padding-right: 60px;
+}
+@media only screen and (max-width: 575px) {
+    .single-timeline-area .timeline-date {
+        width: 100px;
+    }
+}
+.single-timeline-area .timeline-date::after {
+    position: absolute;
+    width: 3px;
+    height: 100%;
+    content: "";
+    background-color: #ebebeb;
+    top: 0;
+    right: 30px;
+    z-index: 1;
+}
+.single-timeline-area .timeline-date::before {
+    position: absolute;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background-color:  rgb(78, 112, 212);
+    content: "";
+    top: 50%;
+    right: 26px;
+    z-index: 5;
+    margin-top: -5.5px;
+}
+.single-timeline-area .timeline-date p {
+    margin-bottom: 0;
+    color: #020710;
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+.single-timeline-area .single-timeline-content {
+    position: relative;
+    z-index: 1;
+    padding: 30px 30px 25px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    -webkit-box-shadow: 0 0.25rem 1rem 0 rgba(47, 91, 234, 0.125);
+    box-shadow: 0 0.25rem 1rem 0 rgba(47, 91, 234, 0.125);
+    border: 1px solid #ebebeb;
+}
+@media only screen and (max-width: 575px) {
+    .single-timeline-area .single-timeline-content {
+        padding: 20px;
+    }
+}
+.single-timeline-area .single-timeline-content .timeline-icon {
+    -webkit-transition-duration: 500ms;
+    transition-duration: 500ms;
+    width: 30px;
+    height: 30px;
+    background-color:  rgb(78, 112, 212);
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 30px;
+    flex: 0 0 30px;
+    text-align: center;
+    max-width: 30px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+.single-timeline-area .single-timeline-content .timeline-icon i {
+    color: #ffffff;
+    line-height: 30px;
+}
+.single-timeline-area .single-timeline-content .timeline-text h6 {
+    -webkit-transition-duration: 500ms;
+    transition-duration: 500ms;
+}
+.single-timeline-area .single-timeline-content .timeline-text p {
+    font-size: 13px;
+    margin-bottom: 0;
+}
+.single-timeline-area .single-timeline-content:hover .timeline-icon,
+.single-timeline-area .single-timeline-content:focus .timeline-icon {
+    background-color: #020710;
+}
+.single-timeline-area .single-timeline-content:hover .timeline-text h6,
+.single-timeline-area .single-timeline-content:focus .timeline-text h6 {
+    color:  rgb(78, 112, 212);
+}
+
+</style>
+ <section class="timeline_area section_padding_130">
+     <div class="container" >
+         <div class="row justify-content-center">
+             <div class="col-12 col-sm-8 col-lg-6">
+                 <!-- Section Heading-->
+                 <div class="section_heading text-center">
+                     <h6>Disposition Timeline</h6>
+                     {{-- <h3>A brief stories of our 2 years company journey</h3> --}}
+                     <div class="line"></div>
+                 </div>
+             </div>
+         </div>
+         <div class="row" style="overflow-y: auto;
+         height: 400px;">
+             <div class="col-12">
+                 <!-- Timeline Area-->
+                 <div class="apland-timeline-area">
+                     <!-- Single Timeline Content-->
+                     @foreach ($dispositionHistory as $val)
+                     @php
+                         $source =$val->created_at;
+                         $date = new DateTime($source);
+                         $source1 =$val->followup_date;
+                         $date1 = new DateTime($source1);
+
+                     @endphp
+                        <style>
+
+                            /* Style buttons */
+        .btn {
+          background-color: DodgerBlue; /* Blue background */
+          border: none; /* Remove borders */
+          color: white; /* White text */
+          padding: 12px 16px; /* Some padding */
+          font-size: 16px; /* Set a font size */
+          cursor: pointer; /* Mouse pointer on hover */
+        }
+
+        /* Darker background on mouse-over */
+        .btn:hover {
+          background-color: rgb(78, 112, 212);
+        }
+
+        </style>
+                     <div class="single-timeline-area">
+                         <div class="timeline-date wow fadeInLeft" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInLeft;">
+                             <p>{{ $date->format('d M Y h:i:s') }}</p>
+                         </div>
+                         <div class="row">
+
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                             <div class="col-12 col-md-6 col-lg-4">
+                                 <div class="single-timeline-content d-flex wow fadeInLeft" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInLeft;">
+                                     {{-- <div class="timeline-icon"><i class="fa fa-address-card" aria-hidden="true"></i></div> --}}
+                                   <div class="timeline-text">
+                                         <h6>
+                                           @if($val->fname) <i class="fa fa-user" aria-hidden="true"></i> {{ $val->fname }} @endif <i class="fa fa-phone" aria-hidden="true"></i> {{ $val->phone }} - {{ $val->status }}
+                         &nbsp;
+                                             @if($val->followup_time)
+                                            {{ $date1->format('d M Y') }} {{ $val->followup_time }}  @if($val->followup_time){{ $val->timezone }} @endif
+                                            @endif</h6>
+                                         <h5>{{ $val->description }}</h5>
+                                         <p>{{ $val->name }}</p>
+
+                                     </div>
+                                 </div>
+                             </div>
+
+
+                         </div>
+                     </div>
+
+                     @endforeach
+
+
+                 </div>
+             </div>
+         </div>
+     </div>
+     <div class="px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+
+        <button wire:click="closeHistory" type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+             Go Back
+         </button>
+     </div>
+ </section>
+
+
+{{--
+
+
+<div class="grid">
+    <div class="grid-container">
+    <table>
+    <thead>
+    <tr class="header">
+    <th>Phone<div>Phone</div></th>
+    <th>User<div>User</div></th>
+    <th>Status<div>Status</div></th>
+      <th>Followup Date<div>Followup Date</div></th>
+      <th>Description<div>Description</div></th>
+      <th>Created At<div>Created At</div></th>
+    </tr>
+    </thead>
+    <tbody>
+
+        @foreach ($dispositionHistory as $val)
+        @php
+            $source =$val->created_at;
+            $date = new DateTime($source);
+            $source1 =$val->followup_date;
+            $date1 = new DateTime($source1);
+
+        @endphp
+        <tr>
+            <td>{{ $val->phone }}</td>
+            <td>{{ $val->name }}</td>
+            <td>{{ $val->status }}</td>
+            <td>{{ $date1->format('d M Y') }} {{ $val->followup_time }} @if($val->followup_time)({{ $val->timezone }})@endif</td>
+            <td>{{ $val->description }}</td>
+            <td>{{ $date->format('d M Y h:i:s') }}</td>
+        </tr>
+        @endforeach
+
+    </tbody>
+    </table>
+    </div>
+    </div>
+
+            </p>
+
+        </div>
+        <div class="px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+
+           <button wire:click="closeHistory" type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Go Back
+            </button>
+        </div>
+    </div>
+</div> --}}
+  @endif
+
 
 
   <!-- Modal -->
@@ -252,8 +581,32 @@
       </div>
       <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full">
           <!-- Modal content -->
+
+          <style>
+
+            /* Style buttons */
+.btn {
+background-color: DodgerBlue; /* Blue background */
+border: none; /* Remove borders */
+color: white; /* White text */
+padding: 12px 16px; /* Some padding */
+font-size: 16px; /* Set a font size */
+cursor: pointer; /* Mouse pointer on hover */
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+background-color: RoyalBlue;
+}
+
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
           <div class="px-4 py-5 sm:p-6">
-              <h3 class="text-lg font-medium text-gray-900">All Disposition</h3>
+              <h3 class="text-lg font-medium text-gray-900">All Disposition
+
+                &nbsp;&nbsp; <button wire:click="openHistory" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" title="View Disposition History"><i class="fa fa-folder"></i></button>
+              </h3>
 
                 <form wire:submit.prevent="disposubmission">
                     <div class="grid gap-6 mb-6 md:grid-cols-2">
@@ -367,5 +720,26 @@
       </div>
   </div>
   @endif
+
+  @livewireScripts
+  <div>
+      <script>
+          window.addEventListener('beforeunload', function (e) {
+              Livewire.emit('refreshPage');
+              e.preventDefault();
+              e.returnValue = '';
+          });
+    //       window.addEventListener('beforeunload', function (e) {
+    // Livewire.emit('refreshPagecloed');
+    //      e.preventDefault();
+    //     e.returnValue = '';
+
+    // });
+
+      </script>
+
+  </div>
+
+
 
     </section>

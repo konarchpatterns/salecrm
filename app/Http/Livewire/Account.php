@@ -9,6 +9,7 @@ use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
+use Session;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\NumberColumn;
@@ -26,6 +27,7 @@ class Account extends Component
     public $isOpen = false;
     public $isOpennew = false;
     public $isOpentime = false;
+    public $isOpenhistory = false;
     public $modalData = '';
     public $companymodalData = '';
     public $company_id = '';
@@ -34,13 +36,61 @@ class Account extends Component
     public $disposition_time;
     public $disposition_date;
     public $disposition_status;
+    public $dispositionHistory;
+    public function openHistory()
+    {
 
+        $this->isOpenhistory = true;
+        $this->isOpennew = false;
+        // $this->dispositionHistory=Disposition::select('dispositions.id','dispositions.phone','dispositions.status',
+        // 'dispositions.timezone','dispositions.created_at','dispositions.followup_date',
+        // 'dispositions.followup_time','dispositions.description','users.name')
+        // ->join('users','users.id','=','dispositions.user_id')
+        // ->where('company_id',$this->company_id )->orderBy('dispositions.id','desc')->get();
+
+        $this->dispositionHistory=DB::table('dispositions')
+        ->select(
+            'dispositions.id',
+            'dispositions.phone',
+            'dispositions.status',
+            'dispositions.timezone',
+            'dispositions.created_at',
+            'dispositions.followup_date',
+            'dispositions.followup_time',
+            'dispositions.description',
+            'users.name',
+            'clients.fname'
+        )
+        ->join('users', function ($join) {
+            $join->on('users.id', '=', 'dispositions.user_id');
+             //    ->whereRaw('users.id collation_connection = dispositions.user_id collation_connection');
+        })
+        ->leftJoin('clients_phones', function ($join) {
+            $join->on(DB::raw('clients_phones.phone collate utf8mb4_unicode_ci'), '=', DB::raw('dispositions.phone collate utf8mb4_unicode_ci'));
+
+
+           })
+           ->leftjoin('clients', 'clients.id', '=', 'clients_phones.clients_id')
+           ->leftjoin('company_phones', 'company_phones.phone', '=', 'dispositions.phone')
+
+        ->where('dispositions.company_id',$this->company_id)->orderBy('dispositions.id','desc')->get();
+    }
+
+    public function closeHistory()
+    {
+
+        $this->isOpenhistory = false;
+        $this->isOpennew = true;
+    }
     public function openModal($mobile,$company,$companyid)
     {
         $this->modalData = $mobile;
         $this->companymodalData = $company;
         $this->company_id = $companyid;
         $this->isOpen = true;
+
+        Session::put('tmpcompanyid', $this->company_id);
+            Session::put('tmpphone', $this->modalData);
     }
     public function opennewModal()
     {
@@ -217,6 +267,40 @@ class Account extends Component
         };
 
         return response()->stream($callback, 200, $headers);
+    }
+
+    // public function mount()
+    // {
+    //     // Session::put('tmpcompanyid', "");
+    //     // Session::put('tmpphone',"");
+    //     $this->refreshPage();
+
+    // }
+    public function refreshPage()
+        {
+      if(!empty(Session::get('tmpphone'))) {
+            $insert=Disposition::create([
+                'user_id'=>Auth::id(),
+                'status'=>"browser refresh",
+                'phone'=>Session::get('tmpphone'),
+                'company_id'=>Session::get('tmpcompanyid')
+            ]);
+        }
+
+        }
+
+
+    public function refreshPagecloed()
+    {
+  if(!empty(Session::get('tmpphone'))) {
+        $insert=Disposition::create([
+            'user_id'=>Auth::id(),
+            'status'=>"browser closed",
+            'phone'=>Session::get('tmpphone'),
+            'company_id'=>Session::get('tmpcompanyid')
+        ]);
+    }
+
     }
 //     public function viewUser($userId)
 // {
