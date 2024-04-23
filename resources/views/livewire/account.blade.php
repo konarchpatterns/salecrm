@@ -721,24 +721,7 @@ background-color: RoyalBlue;
   </div>
   @endif
 
-  @livewireScripts
-  <div>
-      <script>
-          window.addEventListener('beforeunload', function (e) {
-              Livewire.emit('refreshPage');
-              e.preventDefault();
-              e.returnValue = '';
-          });
-    //       window.addEventListener('beforeunload', function (e) {
-    // Livewire.emit('refreshPagecloed');
-    //      e.preventDefault();
-    //     e.returnValue = '';
 
-    // });
-
-      </script>
-
-  </div>
 
 
 
