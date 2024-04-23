@@ -28,6 +28,7 @@ class Useraccount extends Component
     public $isOpennew = false;
     public $isOpentime = false;
     public $isOpenhistory = false;
+    public $refreshtoken = false;
     public $modalData = '';
     public $companymodalData = '';
     public $company_id = '';
@@ -41,6 +42,7 @@ class Useraccount extends Component
 
         $this->isOpenhistory = true;
         $this->isOpennew = false;
+        $this->refreshtoken = true;
         // $this->dispositionHistory=Disposition::select('dispositions.id','dispositions.phone','dispositions.status',
         // 'dispositions.timezone','dispositions.created_at','dispositions.followup_date',
         // 'dispositions.followup_time','dispositions.description','users.name')
@@ -87,6 +89,7 @@ class Useraccount extends Component
         $this->companymodalData = $company;
         $this->company_id = $companyid;
         $this->isOpen = true;
+        $this->refreshtoken = true;
         Session::put('tmpcompanyid', $this->company_id);
             Session::put('tmpphone', $this->modalData);
     }
@@ -95,6 +98,7 @@ class Useraccount extends Component
 
         $this->isOpen = false;
         $this->isOpennew = true;
+        $this->refreshtoken = true;
     }
 
     public function opentimedata()
@@ -119,6 +123,7 @@ class Useraccount extends Component
     public function closeModal()
     {
         $this->isOpen = false;
+        $this->refreshtoken = false;
     }
     protected $rules = [
         'disposition_status' => 'required'
