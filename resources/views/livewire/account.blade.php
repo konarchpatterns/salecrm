@@ -734,12 +734,7 @@ background-color: RoyalBlue;
               e.returnValue = '';
 
           });
-    //       window.addEventListener('beforeunload', function (e) {
-    // Livewire.emit('refreshPagecloed');
-    //      e.preventDefault();
-    //     e.returnValue = '';
 
-    // });
 
       </script>
 

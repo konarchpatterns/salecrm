@@ -275,13 +275,13 @@ class Account extends Component
         return response()->stream($callback, 200, $headers);
     }
 
-    // public function mount()
-    // {
-    //     // Session::put('tmpcompanyid', "");
-    //     // Session::put('tmpphone',"");
-    //     $this->refreshPage();
+    public function mount()
+    {
+        // Session::put('tmpcompanyid', "");
+        // Session::put('tmpphone',"");
+        $this->refreshPage();
 
-    // }
+    }
     public function refreshPage()
         {
       if(!empty(Session::get('tmpphone'))) {
