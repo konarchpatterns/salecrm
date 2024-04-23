@@ -679,7 +679,8 @@ background-color: RoyalBlue;
                          focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700
                           dark:border-gray-600 dark:placeholder-gray-400 dark:text-white
                            dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option value="EST" selected>EST - GMT-5 (New York)</option>
+                           <option value="" selected>---- Select Timezone ----</option>
+                            <option value="EST">EST - GMT-5 (New York)</option>
                             <option value="PST">PST - GMT-8 (Los Angeles)</option>
                             <option value="GMT">GMT - GMT+0 (London)</option>
                             <option value="CET">CET - GMT+1 (Paris)</option>
