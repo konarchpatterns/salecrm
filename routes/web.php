@@ -13,6 +13,7 @@ use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Livewire\Counter;
 use App\Http\Controllers\FullCalendarController;
+use App\Http\Controllers\UserReports;
 
 /*
 |--------------------------------------------------------------------------
@@ -152,6 +153,20 @@ Route::group(['prefix' => 'calendar'], function() {
 Route::group(['prefix' => 'fullcalendar'], function() {
     Route::get('/', [FullCalendarController::class,'index'])->name('fullcalendar.index');
 
+
+})->middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+]);
+
+Route::group(['prefix' => 'reports'], function() {
+    Route::get('/', [UserReports::class,'index'])->name('reports.index');
+    Route::get('/user-info/{id}', [UserReports::class,'userInfo'])->name('reports.user-info');
+    Route::get('/iframe/{id}', [UserReports::class,'iframe'])->name('reports.iframe');
+    Route::get('/api-data', [UserReports::class,'apiData'])->name('reports.api-data');
+    Route::post('/api-data1', [UserReports::class,'apiData'])
+    ->name('reports.api-data1');
 
 })->middleware([
     'auth:sanctum',
