@@ -8,6 +8,13 @@
                 <x-lucide-layout-dashboard  class="w-5 h-5   @if(request()->routeIs('dashboard')) text-blue-600 @else text-gray-500 @endif" />
             </x-nav-link>
         </li>
+          {{-- Full Calendar --}}
+<li>
+    <x-nav-link href="{{ route('fullcalendar.index') }}"   id="calendar2" title="{{ __('Calendar') }}" :active="request()->routeIs('fullcalendar.index')" class="dashboard-link">
+        <x-lucide-layout-dashboard  class="w-5 h-5   @if(request()->routeIs('calendar')) text-blue-600 @else text-gray-500 @endif" />
+    </x-nav-link>
+</li>
+{{-- Full Calendar --}}
         <li>
             <x-nav-link href="{{ route('account.index') }}" id="account" title="{{ __('Accounts') }}" :active="request()->routeIs('account.index')">
                  <x-lucide-building-2  class="w-5 h-5 @if(request()->routeIs('account.index')) text-blue-600 @else text-gray-500 @endif" />

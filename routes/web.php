@@ -10,7 +10,9 @@ use App\Http\Controllers\LocationController;
 use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\ZoomController;
 use App\Http\Controllers\ClientsController;
+use App\Http\Controllers\CalendarController;
 use App\Http\Livewire\Counter;
+use App\Http\Controllers\FullCalendarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -134,3 +136,25 @@ Route::group(['prefix'=>'clients'],function(){
 Route::get('/zoom', [ZoomController::class,'create_meeting'])->name('zoom.index');
 Route::get('/zoom/update', [ZoomController::class,'update_meeting'])->name('zoom.update');
 Route::get('/zoom/list', [ZoomController::class,'list_meetings'])->name('zoom.list');
+Route::group(['prefix' => 'calendar'], function() {
+    Route::get('/', [CalendarController::class,'index'])->name('calendar.index');
+    Route::post('/calendar', [CalendarController::class, 'store'])->name('calendar.store');
+    Route::patch('/update/{id}', [CalendarController::class, 'update']) ->name('calendar.update');
+    Route::delete('/destroy/{id}', [CalendarController::class, 'destroy'])  ->name('calendar.destroy');
+    Route::get('/show/{id}', [CalendarController::class, 'show'])  ->name('calendar.show');
+
+})->middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+]);
+
+Route::group(['prefix' => 'fullcalendar'], function() {
+    Route::get('/', [FullCalendarController::class,'index'])->name('fullcalendar.index');
+
+
+})->middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+]);
