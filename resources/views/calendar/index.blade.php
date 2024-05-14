@@ -170,6 +170,7 @@
                           Event
                         </div> --}}
                         <div class="card-body">
+                            <p id="destroy" class="hidden"></p>
                           <h5 id="event-name" class="card-title">Event Name</h5>
                           <p id="event-dis" class="card-text">Event discription</p>
 
@@ -418,6 +419,7 @@
                         success: function(response){
                             console.log(response);
                             $('#viewModal').modal('toggle');
+                            $('#destroy').text(response.id);
                             $('#event-name').text(response.title);
                             $('#event-dis').text(response.discription);
                             $('#start-time').text(response.start_time);
@@ -431,8 +433,21 @@
                         }
                     });
 
-                    $('#deleteBtn').click(function(){
-                        console.log(id);
+                },
+                selectAllow: function(event)
+                {
+                    return moment(event.start).utcOffset(false).isSame(moment(event.end).subtract(1, 'second').utcOffset(false), 'day');
+                },
+            });
+
+            $("#bookingModal").on("hidden.bs.modal", function () {
+                $('#saveBtn').unbind();
+            });
+
+            $('#deleteBtn').click(function(){
+                var id = $("#destroy").text();
+                console.log(id);
+
                         if(confirm('Are you sure want to remove it')){
                         $.ajax({
                             url:"{{ route('calendar.destroy', '') }}" +'/'+ id,
@@ -450,22 +465,7 @@
                             },
                         });
                         }
-                    })
-
-
-                },
-                selectAllow: function(event)
-                {
-                    return moment(event.start).utcOffset(false).isSame(moment(event.end).subtract(1, 'second').utcOffset(false), 'day');
-                },
-
-
-
-            });
-
-            $("#bookingModal").on("hidden.bs.modal", function () {
-                $('#saveBtn').unbind();
-            });
+                    });
 
             $('.fc-event').css('font-size', '13px');
             $('.fc-event').css('width', '');
