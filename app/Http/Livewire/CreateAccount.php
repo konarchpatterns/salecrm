@@ -23,6 +23,7 @@ class CreateAccount extends Component
 
     public $name;
 
+    public $myassign;
     public $website;
     public $fax;
     public $cities;
@@ -65,7 +66,7 @@ public function removeInputEmail($key)
 }
 protected $rules = [
     'name' => 'required|unique:companies,name',
-    'fax' => 'unique:companies,fax',
+  //  'fax' => 'unique:companies,fax',
     'website' => 'unique:companies,website',
     'country_id' => 'required',
     // 'companyphone' => 'required',
@@ -121,6 +122,12 @@ protected $rules = [
     {
         $this->validate();
 
+        if(!$this->userslist){
+            $myassign=$this->userslist;
+        }else{
+            $myassign=0;
+        }
+
         $ins=Company::create(
             [
                 "name"=>$this->name,
@@ -128,7 +135,7 @@ protected $rules = [
                 "website"=>$this->website,
                 "assign_by"=>Auth::id(),
                 "create_user_id"=>Auth::id(),
-                "assign_to"=>$this->userlist
+                "assign_to"=>$myassign
                 ]
         );
         if($ins)
