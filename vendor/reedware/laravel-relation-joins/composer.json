@@ -1,0 +1,42 @@
+{
+    "name": "reedware/laravel-relation-joins",
+    "description": "Adds the ability to join on a relationship by name.",
+    "keywords": ["laravel", "relation", "join", "eloquent", "query"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tyler Reed",
+            "email": "tylernathanreed@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.3",
+        "illuminate/contracts": "^8.83|^9.52|^10.0",
+        "illuminate/database": "^8.83|^9.52|^10.0",
+        "illuminate/support": "^8.83|^9.52|^10.0"
+    },
+    "require-dev": {
+        "illuminate/container": "^8.83|^9.52|^10.0",
+        "mockery/mockery": "^1.5.1",
+        "php-coveralls/php-coveralls": "^2.4",
+        "phpunit/phpunit": "^8.5.33|^9.5",
+        "squizlabs/php_codesniffer": "^3.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Reedware\\LaravelRelationJoins\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Reedware\\LaravelRelationJoins\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Reedware\\LaravelRelationJoins\\LaravelRelationJoinServiceProvider"
+            ]
+        }
+    }
+}
