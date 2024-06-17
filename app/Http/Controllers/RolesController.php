@@ -13,14 +13,13 @@ use Spatie\Permission\Models\Permission;
 
 class RolesController extends Controller
 {
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     function __construct()
     {
-
     }
 
     /**
@@ -30,8 +29,8 @@ class RolesController extends Controller
      */
     public function index(Request $request)
     {
-        $roles = Role::orderBy('id','DESC')->paginate(5);
-        return view('roles.index',compact('roles'))
+        $roles = Role::orderBy('id', 'DESC')->paginate(5);
+        return view('roles.index', compact('roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -63,7 +62,7 @@ class RolesController extends Controller
         $role->syncPermissions($request->get('permission'));
 
         return redirect()->route('roles.index')
-                        ->with('success','Role created successfully');
+            ->with('success', 'Role created successfully');
     }
 
     /**
@@ -76,19 +75,19 @@ class RolesController extends Controller
     {
         $role = $role;
         $rolePermissions = $role->permissions;
-         $permissions = DB::select('select `permission_id` from role_has_permissions where `role_id`='.$role->id.'');
-        foreach($permissions as $key=>$val){
-            $pmid[]=$val->permission_id;
+        $permissions = DB::select('select `permission_id` from role_has_permissions where `role_id`=' . $role->id . '');
+        foreach ($permissions as $key => $val) {
+            $pmid[] = $val->permission_id;
         }
         $groups = Group::get();
-        foreach($groups as $key=>$val){
-         $permissionids= GroupHasPermission::select('permission_id')->where('group_id',$val->id)
-         ->whereIn('permission_id',$pmid)->get();
-          $permissionidss= Permission::select('id','name','guard_name')->whereIn('id',$permissionids)->get();
+        foreach ($groups as $key => $val) {
+            $permissionids = GroupHasPermission::select('permission_id')->where('group_id', $val->id)
+                ->whereIn('permission_id', $pmid)->get();
+            $permissionidss = Permission::select('id', 'name', 'guard_name')->whereIn('id', $permissionids)->get();
 
-            $groupArr[$val->name][]=["data"=>$permissionidss];
+            $groupArr[$val->name][] = ["data" => $permissionidss];
         }
-        return view('roles.show', compact('role', 'rolePermissions','groupArr'));
+        return view('roles.show', compact('role', 'rolePermissions', 'groupArr'));
     }
 
     /**
@@ -103,14 +102,14 @@ class RolesController extends Controller
         $rolePermissions = $role->permissions->pluck('name')->toArray();
         $permissions = Permission::get();
         $groups = Group::get();
-        foreach($groups as $key=>$val){
-          $permissionids= GroupHasPermission::select('permission_id')->where('group_id',$val->id)->get();
-          $permissionidss= Permission::select('id','name','guard_name')->whereIn('id',$permissionids)->get();
+        foreach ($groups as $key => $val) {
+            $permissionids = GroupHasPermission::select('permission_id')->where('group_id', $val->id)->get();
+            $permissionidss = Permission::select('id', 'name', 'guard_name')->whereIn('id', $permissionids)->get();
 
-            $groupArr[$val->name][]=["data"=>$permissionidss];
+            $groupArr[$val->name][] = ["data" => $permissionidss];
         }
 
-        return view('roles.edit', compact('role', 'rolePermissions', 'permissions','groupArr'));
+        return view('roles.edit', compact('role', 'rolePermissions', 'permissions', 'groupArr'));
     }
 
     /**
@@ -132,7 +131,7 @@ class RolesController extends Controller
         $role->syncPermissions($request->get('permission'));
 
         return redirect()->route('roles.index')
-                        ->with('success','Role updated successfully');
+            ->with('success', 'Role updated successfully');
     }
 
     /**
@@ -146,6 +145,6 @@ class RolesController extends Controller
         $role->delete();
 
         return redirect()->route('roles.index')
-                        ->with('success','Role deleted successfully');
+            ->with('success', 'Role deleted successfully');
     }
 }
