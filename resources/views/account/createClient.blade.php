@@ -1,12 +1,10 @@
 <x-app-layout>
     <x-content-layout title='Client' subtitle="Create new Client here." button='Go back' link="account.index">
 
+        <livewire:create-client />
 
-           <livewire:create-client />
-
-
-                <!-- Search input -->
-                {{-- <div class=" flex items-center justify-center">
+        <!-- Search input -->
+        {{-- <div class=" flex items-center justify-center">
 
                     <div class="relative group">
 
@@ -19,11 +17,5 @@
                     </div>
                   </div> --}}
 
-
-
-
-
-
-
-                </x-content-layout>
+    </x-content-layout>
 </x-app-layout>

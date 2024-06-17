@@ -29,7 +29,7 @@
                             @endif
                         </div>
 
-                        <div class="ml-3">
+                        <div class="ms-3">
                             <div class="text-sm text-gray-600">
                                 {{ $session->agent->platform() ? $session->agent->platform() : __('Unknown') }} - {{ $session->agent->browser() ? $session->agent->browser() : __('Unknown') }}
                             </div>
@@ -56,13 +56,13 @@
                 {{ __('Log Out Other Browser Sessions') }}
             </x-button>
 
-            <x-action-message class="ml-3" on="loggedOut">
+            <x-action-message class="ms-3" on="loggedOut">
                 {{ __('Done.') }}
             </x-action-message>
         </div>
 
         <!-- Log Out Other Devices Confirmation Modal -->
-        <x-dialog-modal wire:model="confirmingLogout">
+        <x-dialog-modal wire:model.live="confirmingLogout">
             <x-slot name="title">
                 {{ __('Log Out Other Browser Sessions') }}
             </x-slot>
@@ -75,7 +75,7 @@
                                 autocomplete="current-password"
                                 placeholder="{{ __('Password') }}"
                                 x-ref="password"
-                                wire:model.defer="password"
+                                wire:model="password"
                                 wire:keydown.enter="logoutOtherBrowserSessions" />
 
                     <x-input-error for="password" class="mt-2" />
@@ -87,7 +87,7 @@
                     {{ __('Cancel') }}
                 </x-secondary-button>
 
-                <x-button class="ml-3"
+                <x-button class="ms-3"
                             wire:click="logoutOtherBrowserSessions"
                             wire:loading.attr="disabled">
                     {{ __('Log Out Other Browser Sessions') }}

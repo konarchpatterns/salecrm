@@ -18,8 +18,10 @@
                 </thead>
                 <tbody>
                     @foreach ($roles as $key => $role)
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <tr
+                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <th scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $role->id }}
                             </th>
                             <td class="px-6 py-4">
@@ -35,15 +37,25 @@
                                     class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
                                     <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownMenuIconButton">
                                         <li>
-                                            <a href="{{ route('roles.show', $role->id) }}" class="block px-4 py-2 hover:bg-gray-100">View</a>
+                                            <a href="{{ route('roles.show', $role->id) }}"
+                                                class="block px-4 py-2 hover:bg-gray-100">View</a>
                                         </li>
                                         <li>
-                                            <a href="{{ route('roles.edit', $role->id) }}" class="block px-4 py-2 hover:bg-gray-100">Edit</a>
+                                            <a href="{{ route('roles.edit', $role->id) }}"
+                                                class="block px-4 py-2 hover:bg-gray-100">Edit</a>
                                         </li>
                                         <li>
-                                            {!! Form::open(['method' => 'DELETE', 'route' => ['roles.destroy', $role->id], 'style' => 'display:inline']) !!}
+                                            {{-- {!! Form::open(['method' => 'DELETE', 'route' => ['roles.destroy', $role->id], 'style' => 'display:inline']) !!}
                                             {!! Form::submit('Delete', [ 'class' => 'block px-4 py-2 hover:bg-gray-100' ]) !!}
-                                            {!! Form::close() !!}
+                                            {!! Form::close() !!} --}}
+                                            <form method="POST" action="{{ route('roles.destroy', $role->id) }}"
+                                                style="display:inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                    class="block px-4 py-2 hover:bg-gray-100">Delete</button>
+                                            </form>
+
                                         </li>
                                     </ul>
                                 </div>

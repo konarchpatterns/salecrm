@@ -1,8 +1,8 @@
-<div >
+<div>
     <div class="overflow-x-auto space-y-2 ">
         <div class="flex justify-between text-xl font-bold">
             <p>BDE In-active Users Summary</p>
-            <input wire:model="search" type="search" placeholder="search" class="border rounded-lg" />
+            <input wire:model.live="search" type="search" placeholder="search" class="border rounded-lg" />
         </div>
         <table class="w-full text-sm text-left text-gray-500">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
@@ -23,13 +23,13 @@
             </thead>
             <tbody>
                 @foreach ($bdeInActiveUsers as $bdeInActiveUser)
-                    <tr wire:key="{{$bdeInActiveUser->id}}"  class="border-b dark:border-gray-700">
-                        <td class="px-4 py-3 text-right">{{$bdeInActiveUser->id}}</td>
+                    <tr wire:key="{{ $bdeInActiveUser->id }}" class="border-b dark:border-gray-700">
+                        <td class="px-4 py-3 text-right">{{ $bdeInActiveUser->id }}</td>
                         <td class="px-4 py-3">
-                            <a href="reports/user-info/{{$bdeInActiveUser->id}}">{{$bdeInActiveUser->name}}</a>
+                            <a href="reports/user-info/{{ $bdeInActiveUser->id }}">{{ $bdeInActiveUser->name }}</a>
                         </td>
-                        <td class="px-4 py-3">{{$bdeInActiveUser->dispositions_count}} </td>
-                        <td class="px-4 py-3"> {{$bdeInActiveUser->company_count}}</td>
+                        <td class="px-4 py-3">{{ $bdeInActiveUser->dispositions_count }} </td>
+                        <td class="px-4 py-3"> {{ $bdeInActiveUser->company_count }}</td>
                     </tr>
                 @endforeach
             </tbody>
@@ -39,4 +39,3 @@
         {{ $bdeInActiveUsers->links() }}
     </div>
 </div>
-

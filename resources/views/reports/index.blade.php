@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-content-layout title='Reports'   subtitle="User reports" button='Go back' link="reports.index" >
+    <x-content-layout title='Reports' subtitle="User reports" button='Go back' link="reports.index">
         <div class="flex gap-5 justify-between">
             <div class="border rounded-lg p-5  w-1/4 space-y-5">
                 <div class="flex justify-between gap-5 text-gray-500 font-bold">

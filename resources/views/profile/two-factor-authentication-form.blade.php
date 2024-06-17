@@ -38,7 +38,7 @@
                     </p>
                 </div>
 
-                <div class="mt-4">
+                <div class="mt-4 p-2 inline-block bg-white">
                     {!! $this->user->twoFactorQrCodeSvg() !!}
                 </div>
 
@@ -53,7 +53,7 @@
                         <x-label for="code" value="{{ __('Code') }}" />
 
                         <x-input id="code" type="text" name="code" class="block mt-1 w-1/2" inputmode="numeric" autofocus autocomplete="one-time-code"
-                            wire:model.defer="code"
+                            wire:model="code"
                             wire:keydown.enter="confirmTwoFactorAuthentication" />
 
                         <x-input-error for="code" class="mt-2" />
@@ -86,19 +86,19 @@
             @else
                 @if ($showingRecoveryCodes)
                     <x-confirms-password wire:then="regenerateRecoveryCodes">
-                        <x-secondary-button class="mr-3">
+                        <x-secondary-button class="me-3">
                             {{ __('Regenerate Recovery Codes') }}
                         </x-secondary-button>
                     </x-confirms-password>
                 @elseif ($showingConfirmation)
                     <x-confirms-password wire:then="confirmTwoFactorAuthentication">
-                        <x-button type="button" class="mr-3" wire:loading.attr="disabled">
+                        <x-button type="button" class="me-3" wire:loading.attr="disabled">
                             {{ __('Confirm') }}
                         </x-button>
                     </x-confirms-password>
                 @else
                     <x-confirms-password wire:then="showRecoveryCodes">
-                        <x-secondary-button class="mr-3">
+                        <x-secondary-button class="me-3">
                             {{ __('Show Recovery Codes') }}
                         </x-secondary-button>
                     </x-confirms-password>

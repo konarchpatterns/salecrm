@@ -2,94 +2,88 @@
     @include('datatablecss')
     <x-content-layout title='Users' subtitle="Edit User." button='Go back' link="users.index">
 
-    <div class="space-y-3">
-        @if (count($errors) > 0)
-            <div class="alert alert-danger">
-                <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-        <form method="post" action="{{ route('users.update', $user->id) }}">
-            @method('patch')
-            @csrf
-            <div class="flex flex-col gap-3">
-                <div>
-                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                        User Name
-                    </label>
-                    <input type="text" value="{{ $user->name }}" name="name" id="name"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 px-5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Users name" required />
+        <div class="space-y-3">
+            @if (count($errors) > 0)
+                <div class="alert alert-danger">
+                    <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
+            @endif
+            <form method="post" action="{{ route('users.update', $user->id) }}">
+                @method('patch')
+                @csrf
+                <div class="flex flex-col gap-3">
+                    <div>
+                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            User Name
+                        </label>
+                        <input type="text" value="{{ $user->name }}" name="name" id="name"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 px-5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Users name" required />
+                    </div>
 
 
-                <div>
-                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                        Email
-                    </label>
-                    <input type="email" value="{{ $user->email }}" name="email" id="email"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 px-5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Users Email" required />
-                </div>
+                    <div>
+                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Email
+                        </label>
+                        <input type="email" value="{{ $user->email }}" name="email" id="email"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 px-5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Users Email" required />
+                    </div>
 
 
 
-                <div>
-                    <label for="role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                        Role
-                    </label>
-                    @php
-                    $ii=0;
-                    @endphp
-                    <!--/container-->
-    <!-- jQuery -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
-    <!--Datatables -->
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-
-                    @foreach($roles as $role)
-
-                    <input type="checkbox"
-                    name="role[]"
-                    value="{{ $role->name }}"
-                    {{ in_array($role->name, $userRole)
-                        ? 'checked'
-                        : '' }}
-                    class="permission w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600">
-                    {{ $role->name }}
-                    @endforeach
-
-                </div>
-
-
-                <div>
-                    <label for="role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                        Reporting Manager
+                    <div>
+                        <label for="role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Role
+                        </label>
                         @php
-                        $designationlistss=json_decode($designationlist,true);
+                            $ii = 0;
                         @endphp
-                    </label>
-                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
+                        <!--/container-->
+                        <!-- jQuery -->
+                        <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+                        <!--Datatables -->
+                        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+                        <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+
+                        @foreach ($roles as $role)
+                            <input type="checkbox" name="role[]" value="{{ $role->name }}"
+                                {{ in_array($role->name, $userRole) ? 'checked' : '' }}
+                                class="permission w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600">
+                            {{ $role->name }}
+                        @endforeach
+
+                    </div>
+
+
+                    <div>
+                        <label for="role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Reporting Manager
+                            @php
+                                $designationlistss = json_decode($designationlist, true);
+                            @endphp
+                        </label>
+                        <select
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
                      focus:border-blue-500 block w-1/3 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
                      dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    name="designation" >
-                    <option value="0">Assign Manager</option>
-                    @foreach($designationlistss as $key=>$val)
-                        <option value="{{ $designationlistss[$key]['id'] }}"
-                         @if($designationlistss[$key]['id']==$user->assign_by)
-                               selected
-                               @endif>
-                                {{ $designationlistss[$key]['name'] }}</option>
-                    @endforeach
-                </select>
-                </div>
-                {{-- <div>
+                            name="designation">
+                            <option value="0">Assign Manager</option>
+                            @foreach ($designationlistss as $key => $val)
+                                <option value="{{ $designationlistss[$key]['id'] }}"
+                                    @if ($designationlistss[$key]['id'] == $user->assign_by) selected @endif>
+                                    {{ $designationlistss[$key]['name'] }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    {{-- <div>
                     <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Password
                     </label>
@@ -98,7 +92,7 @@
                         placeholder="Users Email" required />
                 </div> --}}
 
-                {{-- <div>
+                    {{-- <div>
                     <label for="Permissions" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Permissions
                     </label>
@@ -129,126 +123,130 @@
 
 
 
-                <div class="grid grid-cols-2 gap-6 mt-6">
-                    @foreach ($groupArr as $key => $val)
-                        @if (count(json_decode($groupArr[$key][0]['data'], true)) > 0)
-                        <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white max-h-24'">
+                    <div class="grid grid-cols-2 gap-6 mt-6">
+                        @foreach ($groupArr as $key => $val)
+                            @if (count(json_decode($groupArr[$key][0]['data'], true)) > 0)
+                                <div id='recipients' class="p-8 mt-6 lg:mt-0 rounded shadow bg-white max-h-24'">
 
-                        <table id="example{{ $ii }}" class="stripe hover" style="width:100%; padding-top: 1em;
+                                    <table id="example{{ $ii }}" class="stripe hover"
+                                        style="width:100%; padding-top: 1em;
                         padding-bottom: 1em; ">
-                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                                <tr>
-                                        <th colspan="3" scope="col" class="px-6 py-3">Group - {{ $key }}</th>
-                                    </tr>
-                                    <tr>
-                                        <th scope="col" class="px-6 py-3">
-                                            <input name="all_permission{{ $ii }}" id="all_permission" type="checkbox"
-                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                            <label for="checkbox-all-search" class="sr-only"></label>
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Permission name
-                                        </th>
-                                        <th scope="col" class="px-6 py-3 text-right">
-                                            Guard
-                                        </th>
-                                    </tr>
-
-                                </thead>
-                                <tbody class="overflow-y-scroll">
-                                    @if (count(json_decode($groupArr[$key][0]['data'], true)) > 0)
-                                        @foreach (json_decode($groupArr[$key][0]['data'], true) as $permission)
-                                            <tr
-                                                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                                <th scope="row"
-                                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                    <input type="checkbox" id="{{ $permission['name'] }}"
-                                                        name="grpermission[{{ $permission['name'] }}]"
-                                                        value="{{ $permission['name'] }}"
-                                                        {{ in_array($permission['name'], $userPermission) ? 'checked' : '' }}
-                                                        {{ in_array($permission['name'], $permissionNamesecs) ? 'checked disabled' : '' }}
-                                                        class="permission{{ $ii }} w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600">
-                                                    <label for="permission[{{ $permission['name'] }}]" class="sr-only"
-                                                        checked>checkbox</label>
-                                                </th>
-                                                <td class="px-6 py-4">
-                                                    {{ $permission['name'] }}
-                                                </td>
-                                                <td class="px-6 py-4 text-right">
-                                                    {{ $permission['guard_name'] }}
-                                                </td>
+                                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                            <tr>
+                                                <th colspan="3" scope="col" class="px-6 py-3">Group -
+                                                    {{ $key }}</th>
                                             </tr>
-                                        @endforeach
-                                    @endif
-                                </tbody>
-                            </table>
-                        </div>
-                        @endif
+                                            <tr>
+                                                <th scope="col" class="px-6 py-3">
+                                                    <input name="all_permission{{ $ii }}" id="all_permission"
+                                                        type="checkbox"
+                                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                    <label for="checkbox-all-search" class="sr-only"></label>
+                                                </th>
+                                                <th scope="col" class="px-6 py-3">
+                                                    Permission name
+                                                </th>
+                                                <th scope="col" class="px-6 py-3 text-right">
+                                                    Guard
+                                                </th>
+                                            </tr>
 
-                        @section('scripts')
-                        @push('other-scripts')
-                            <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-                            <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+                                        </thead>
+                                        <tbody class="overflow-y-scroll">
+                                            @if (count(json_decode($groupArr[$key][0]['data'], true)) > 0)
+                                                @foreach (json_decode($groupArr[$key][0]['data'], true) as $permission)
+                                                    <tr
+                                                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                        <th scope="row"
+                                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                            <input type="checkbox" id="{{ $permission['name'] }}"
+                                                                name="grpermission[{{ $permission['name'] }}]"
+                                                                value="{{ $permission['name'] }}"
+                                                                {{ in_array($permission['name'], $userPermission) ? 'checked' : '' }}
+                                                                {{ in_array($permission['name'], $permissionNamesecs) ? 'checked disabled' : '' }}
+                                                                class="permission{{ $ii }} w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600">
+                                                            <label for="permission[{{ $permission['name'] }}]"
+                                                                class="sr-only" checked>checkbox</label>
+                                                        </th>
+                                                        <td class="px-6 py-4">
+                                                            {{ $permission['name'] }}
+                                                        </td>
+                                                        <td class="px-6 py-4 text-right">
+                                                            {{ $permission['guard_name'] }}
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            @endif
+                                        </tbody>
+                                    </table>
+                                </div>
+                            @endif
+
+                            @section('scripts')
+                                @push('other-scripts')
+                                    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+                                    <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 
 
-                        <script>
-                            $(document).ready(function() {
+                                    <script>
+                                        $(document).ready(function() {
 
-                                var table = $('#example@php echo $ii; @endphp').DataTable({
-                                        responsive: true,
-                                        bPaginate: false,
-                                        scrollCollapse: true,
-                            scrollY: '50vh'
-                                    })
-                                    .columns.adjust()
-                                    .responsive.recalc();
-                            });
-                        </script>
-                            <script type="text/javascript">
-                                $(document).ready(function() {
-                                    $('[name="all_permission@php echo $ii; @endphp"]').on('click', function() {
+                                            var table = $('#example@php echo $ii; @endphp').DataTable({
+                                                    responsive: true,
+                                                    bPaginate: false,
+                                                    scrollCollapse: true,
+                                                    scrollY: '50vh'
+                                                })
+                                                .columns.adjust()
+                                                .responsive.recalc();
+                                        });
+                                    </script>
+                                    <script type="text/javascript">
+                                        $(document).ready(function() {
+                                            $('[name="all_permission@php echo $ii; @endphp"]').on('click', function() {
 
-                                        if ($(this).is(':checked')) {
-                                            $.each($('.permission@php echo $ii; @endphp'), function() {
-                                                $(this).prop('checked', true);
+                                                if ($(this).is(':checked')) {
+                                                    $.each($('.permission@php echo $ii; @endphp'), function() {
+                                                        $(this).prop('checked', true);
+                                                    });
+                                                } else {
+                                                    $.each($('.permission@php echo $ii; @endphp'), function() {
+                                                        $(this).prop('checked', false);
+                                                    });
+                                                }
+
                                             });
-                                        } else {
-                                            $.each($('.permission@php echo $ii; @endphp'), function() {
-                                                $(this).prop('checked', false);
-                                            });
-                                        }
+                                        });
+                                    </script>
+                                @endpush
+                            @endsection
+                            @php
+                                $ii++;
+                            @endphp
+                        @endforeach
+                    </div>
 
-                                    });
-                                });
-                            </script>
-                        @endpush
-                        @endsection
-                        @php
-                            $ii++ ;
-                        @endphp
-                    @endforeach
+
+
+
+                    <div class="mt-3 text-right">
+                        <button type="submit"
+                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-1/3 sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            Update User
+                        </button>
+                    </div>
                 </div>
 
 
 
 
-                <div class="mt-3 text-right">
-                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-1/3 sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Update User
-                    </button>
-                </div>
-            </div>
 
 
 
+            </form>
 
-
-
-
-        </form>
-
-    </div>
-</x-content-layout>
+        </div>
+    </x-content-layout>
 </x-app-layout>
 
 
@@ -307,7 +305,7 @@
                     <select class="form-control"
                         name="role" required>
                         <option value="">Select role</option>
-                        @foreach($roles as $role)
+                        @foreach ($roles as $role)
                             <option value="{{ $role->id }}"
                                 {{ in_array($role->name, $userRole)
                                     ? 'selected'
