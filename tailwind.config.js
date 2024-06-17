@@ -1,26 +1,27 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
+import defaultTheme from "tailwindcss/defaultTheme";
+import forms from "@tailwindcss/forms";
+import typography from "@tailwindcss/typography";
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
     content: [
+        "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
+        "./vendor/laravel/jetstream/**/*.blade.php",
+        "./resources/**/*.blade.php",
+        "./resources/**/*.js",
         "./node_modules/flowbite/**/*.js",
-        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
-        './vendor/laravel/jetstream/**/*.blade.php',
-        './storage/framework/views/*.php',
-        './resources/views/**/*.blade.php',
+        "./storage/framework/views/*.php",
+        "./resources/views/**/*.blade.php",
         "./resources/**/*.vue",
     ],
 
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ["Figtree", ...defaultTheme.fontFamily.sans],
             },
         },
     },
 
-    plugins: [
-        // require('@tailwindcss/forms'),
-        // require('@tailwindcss/typography'),
-        require('flowbite/plugin')],
+    plugins: [forms, typography, require("flowbite/plugin")],
 };
